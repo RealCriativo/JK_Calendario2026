@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JK Shopping — A Escolha que Vale Mais · 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=Space+Mono:wght@400;700&display=swap');
+:root{
+  --jk-y:#F5C800;--jk-b:#1A1AE6;--jk-r:#C41C1C;--jk-dark:#111;--jk-mid:#555;
+  --bg:#fff;--surf:#F5F4EF;--bdr:#E0DDD6;
+  --F:#1A1AE6;--S:#B8900A;--C:#C41C1C;--E:#059669;--P:#E56C1A;
+  /* editorias */
+  --ed1:#7C3AED;--ed2:#0891B2;--ed3:#2563EB;--ed4:#DB2777;--ed5:#E56C1A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--jk-dark);font-family:'DM Sans',sans-serif;}
+
+/* ── HEADER ── */
+.hdr{position:sticky;top:0;z-index:300;background:var(--jk-dark);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:54px;gap:10px;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--jk-y);white-space:nowrap;}
+.logo em{color:rgba(255,255,255,.35);font-style:normal;font-size:9px;font-family:'DM Sans',sans-serif;font-weight:300;margin-left:8px;}
+.hflt{display:flex;gap:4px;align-items:center;flex-wrap:wrap;}
+.fb{padding:3px 10px;border-radius:100px;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.5);font-size:10px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.fb:hover{border-color:var(--jk-y);color:var(--jk-y);}
+.fb.act{font-weight:700;}
+.fb[data-t="F"].act{background:var(--F);border-color:var(--F);color:#fff;}
+.fb[data-t="S"].act{background:var(--S);border-color:var(--S);color:#fff;}
+.fb[data-t="C"].act{background:var(--C);border-color:var(--C);color:#fff;}
+.fb[data-t="E"].act{background:var(--E);border-color:var(--E);color:#fff;}
+.fb[data-t="P"].act{background:var(--P);border-color:var(--P);color:#fff;}
+.fb[data-t="all"].act{background:var(--jk-y);border-color:var(--jk-y);color:var(--jk-dark);}
+
+/* ── NAV ── */
+.nav{background:var(--surf);border-bottom:1px solid var(--bdr);display:flex;padding:0 16px;overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:200;}
+.nav::-webkit-scrollbar{display:none;}
+.nt{padding:9px 13px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:#aaa;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;}
+.nt:hover{color:var(--jk-b);}
+.nt.act{color:var(--jk-b);border-bottom-color:var(--jk-b);font-weight:700;}
+
+.main{padding:24px;max-width:1440px;}
+.view{display:none;}.view.act{display:block;}
+
+/* ── OVERVIEW ── */
+/* Conceito strip */
+.conceito{background:var(--jk-dark);border-radius:12px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.c-left h1{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--jk-y);line-height:1;}
+.c-left h1 span{color:#fff;}
+.c-left p{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;font-family:'Space Mono',monospace;letter-spacing:.5px;}
+.c-right{display:flex;gap:8px;flex-wrap:wrap;}
+.eixo-pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 14px;}
+.eixo-pill .ep-tag{font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--jk-y);margin-bottom:3px;}
+.eixo-pill .ep-name{font-size:12px;font-weight:700;color:#fff;}
+.eixo-pill .ep-sub{font-size:10px;color:rgba(255,255,255,.4);}
+
+/* CTC strip */
+.ctc-strip{background:linear-gradient(135deg,#B91C1C,#E54444);border-radius:10px;padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.ctc-strip .ct-badge{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:rgba(0,0,0,.2);padding:4px 14px;border-radius:6px;white-space:nowrap;}
+.ctc-strip .ct-desc{font-size:11.5px;color:rgba(255,255,255,.85);flex:1;min-width:200px;}
+.ctc-strip .ct-mec{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.5px;}
+
+/* Proportion strip */
+.prop-strip{background:var(--jk-dark);border-radius:10px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.ps-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.ps-wrap{flex:1;min-width:220px;}
+.ps-bar{display:flex;border-radius:4px;overflow:hidden;height:9px;}
+.ps-F{background:var(--F);} .ps-S{background:var(--S);} .ps-C{background:var(--C);} .ps-E{background:var(--E);} .ps-P{background:var(--P);}
+.ps-leg{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;}
+.ps-li{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;}
+.ps-dot{width:7px;height:7px;border-radius:50%;}
+
+/* Annual timeline */
+.yr-tl{overflow-x:auto;margin-bottom:28px;}
+.yr-tbl{border-collapse:collapse;border:1px solid var(--bdr);border-radius:12px;overflow:hidden;min-width:900px;width:100%;}
+/* row labels col */
+.yr-rlbl{background:var(--jk-dark);color:var(--jk-y);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;padding:8px 10px;text-align:center;white-space:nowrap;border-right:1px solid rgba(255,255,255,.08);min-width:70px;}
+/* month headers */
+.yr-mhd{background:var(--jk-dark);color:var(--jk-y);font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;padding:9px 4px;text-align:center;border-right:1px solid rgba(255,255,255,.08);cursor:pointer;transition:background .15s;white-space:nowrap;}
+.yr-mhd:hover{background:#222;}
+.yr-mhd:last-child{border-right:none;}
+/* body cells */
+.yr-cell{padding:5px 4px;border-right:1px solid var(--bdr);border-top:1px solid var(--bdr);vertical-align:top;background:var(--bg);}
+.yr-cell:last-child{border-right:none;}
+.yr-cell.alt{background:var(--surf);}
+/* mini prop bar */
+.mini-bar{display:flex;border-radius:3px;overflow:hidden;height:5px;margin-bottom:3px;}
+/* theme cell */
+.yr-theme-txt{font-size:8px;color:#888;line-height:1.4;padding:4px;}
+/* event pills in year */
+.yr-ev{font-size:7px;font-weight:600;padding:1.5px 5px;border-radius:3px;margin:1px 1px;display:inline-block;line-height:1.5;white-space:nowrap;}
+/* CTC prize */
+.yr-ctc{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--P);padding:4px;letter-spacing:.5px;}
+/* count row */
+.yr-cnt{font-family:'Space Mono',monospace;font-size:7.5px;color:#888;padding:3px 4px;line-height:1.7;}
+.yr-cnt strong{color:var(--jk-dark);}
+
+/* INFO CARDS */
+.slbl{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:#bbb;margin-bottom:10px;margin-top:22px;}
+.info-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:18px;}
+.ic{border-radius:9px;padding:13px;border:1.5px solid;}
+.ic.cr{background:#FFF9F9;border-color:rgba(196,28,28,.16);}
+.ic.op{background:#FFFEF5;border-color:rgba(184,144,10,.18);}
+.ic-t{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;margin-bottom:4px;}
+.ic.cr .ic-t{color:var(--C);}
+.ic.op .ic-t{color:var(--S);}
+.ic-b{font-size:11px;color:#666;line-height:1.5;}
+
+/* ── EIXOS ── */
+.etbl{width:100%;border-collapse:collapse;border:1px solid var(--bdr);overflow:hidden;margin-bottom:16px;}
+.etbl th{background:var(--jk-dark);color:var(--jk-y);font-family:'Bebas Neue',sans-serif;font-size:10.5px;letter-spacing:1.5px;padding:9px 11px;text-align:left;border-right:1px solid rgba(255,255,255,.08);}
+.etbl th:last-child{border-right:none;}
+.etbl td{padding:9px 11px;font-size:10.5px;color:var(--jk-mid);border-right:1px solid var(--bdr);border-top:1px solid var(--bdr);vertical-align:top;line-height:1.5;}
+.etbl td:last-child{border-right:none;}
+.etbl tr:nth-child(even) td{background:var(--surf);}
+.enm{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;color:var(--jk-dark);}
+.efr{font-size:9px;color:#888;font-style:italic;margin-top:2px;}
+.cblk{background:var(--surf);border:1px solid var(--bdr);border-radius:9px;padding:14px;margin-bottom:10px;}
+.chd{display:flex;align-items:center;gap:8px;margin-bottom:11px;flex-wrap:wrap;}
+.cbadge{background:var(--jk-dark);color:var(--jk-y);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;}
+.cdesc{font-size:10px;color:#888;font-style:italic;}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px;}
+.citem{background:var(--bg);border:1px solid var(--bdr);border-radius:7px;padding:11px;}
+.ced{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:4px;}
+.cdot{width:6px;height:6px;border-radius:50%;}
+.carg{font-size:10.5px;line-height:1.5;color:var(--jk-mid);}
+
+/* ── MONTH VIEW ── */
+.mhero{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--bdr);flex-wrap:wrap;gap:12px;}
+.mnm{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;color:var(--jk-dark);line-height:1;}
+.mtheme{font-size:10px;font-family:'Space Mono',monospace;color:#999;text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.mstrip{background:var(--jk-dark);border-radius:8px;padding:9px 13px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.mstrip .ps-wrap{min-width:180px;}
+.mstrip .ps-bar{height:7px;}
+.mstrip .ps-li{font-size:10px;color:rgba(255,255,255,.85);}
+.mstrip .ps-lbl{color:rgba(255,255,255,.3);}
+
+/* CTC month block */
+.m-ctc{background:linear-gradient(135deg,#991B1B,#DC3545);border-radius:9px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.mctc-prize{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;white-space:nowrap;}
+.mctc-frase{font-size:12px;color:rgba(255,255,255,.9);font-style:italic;flex:1;}
+.mctc-cta{font-size:10px;color:rgba(255,255,255,.6);font-family:'Space Mono',monospace;}
+
+/* Post calendar table */
+.post-tbl-wrap{overflow-x:auto;margin-bottom:18px;}
+.post-tbl{border-collapse:collapse;width:100%;min-width:700px;}
+.post-tbl th{background:var(--jk-dark);color:var(--jk-y);font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1.5px;padding:7px 10px;text-align:left;border-right:1px solid rgba(255,255,255,.08);}
+.post-tbl th:last-child{border-right:none;}
+.post-tbl td{padding:7px 10px;font-size:11px;color:var(--jk-mid);border-right:1px solid var(--bdr);border-top:1px solid var(--bdr);vertical-align:top;line-height:1.4;}
+.post-tbl td:last-child{border-right:none;}
+.post-tbl tr:hover td{background:#FAFAF5;}
+.post-tbl tr.hidden{display:none;}
+.post-tbl tr.type-P td{background:#FFF5EE;}
+.post-tbl tr.type-P:hover td{background:#FFE8D4;}
+
+/* type badge inline */
+.tbadge{font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 6px;border-radius:100px;white-space:nowrap;font-weight:700;}
+.tbadge-F{background:rgba(26,26,230,.08);color:var(--F);}
+.tbadge-S{background:rgba(184,144,10,.09);color:var(--S);}
+.tbadge-C{background:rgba(196,28,28,.07);color:var(--C);}
+.tbadge-E{background:rgba(184,144,10,.09);color:var(--S);}
+.tbadge-P{background:rgba(229,108,26,.1);color:var(--P);}
+
+/* format badge */
+.fmt{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;background:var(--surf);color:#666;white-space:nowrap;}
+
+/* editoria badge */
+.ed-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;}
+
+/* day number */
+.day-num{font-family:'Space Mono',monospace;font-size:10px;color:#bbb;white-space:nowrap;}
+.day-wk{font-size:9px;color:#ddd;display:block;}
+
+/* insights */
+.irow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.iblk{border-radius:8px;padding:13px;}
+.iblk.ten{background:#FFF8F8;border:1px solid rgba(196,28,28,.12);}
+.iblk.opp{background:#FFFDF0;border:1px solid rgba(184,144,10,.16);}
+.ilbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.iblk.ten .ilbl{color:var(--C);}
+.iblk.opp .ilbl{color:var(--S);}
+.itxt{font-size:11px;line-height:1.6;color:var(--jk-mid);font-weight:300;}
+
+/* EDITORIA LEGEND */
+.ed-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;background:var(--surf);border-radius:8px;border:1px solid var(--bdr);}
+.edl-item{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;}
+.edl-dot{width:7px;height:7px;border-radius:50%;}
+
+@media(max-width:900px){
+  .irow{grid-template-columns:1fr;}
+  .mnm{font-size:36px;}
+  .conceito{flex-direction:column;}
+  .c-right{gap:6px;}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo">JK Shopping <em>A Escolha que Vale Mais · 2026</em></div>
+  <div class="hflt">
+    <span style="font-size:8px;color:rgba(255,255,255,.25);font-family:'Space Mono',monospace;margin-right:2px;">TIPO</span>
+    <button class="fb act" data-t="all" onclick="filterType('all',this)">Todos</button>
+    <button class="fb" data-t="F" onclick="filterType('F',this)">F — Frequência</button>
+    <button class="fb" data-t="S" onclick="filterType('S',this)">S — Sazonal + Evento</button>
+    <button class="fb" data-t="C" onclick="filterType('C',this)">C — Contextual</button>
+    <button class="fb" data-t="P" onclick="filterType('P',this)">P — CTC Promoção</button>
+  </div>
+</header>
+
+<div class="nav">
+  <button class="nt act" onclick="showView('anual',this)">Overview Anual</button>
+  <button class="nt" onclick="showView('eixos',this)">Eixos × Editorias</button>
+  <button class="nt" onclick="showMonth(0,this)">Jan</button>
+  <button class="nt" onclick="showMonth(1,this)">Fev</button>
+  <button class="nt" onclick="showMonth(2,this)">Mar</button>
+  <button class="nt" onclick="showMonth(3,this)">Abr</button>
+  <button class="nt" onclick="showMonth(4,this)">Mai</button>
+  <button class="nt" onclick="showMonth(5,this)">Jun</button>
+  <button class="nt" onclick="showMonth(6,this)">Jul</button>
+  <button class="nt" onclick="showMonth(7,this)">Ago</button>
+  <button class="nt" onclick="showMonth(8,this)">Set</button>
+  <button class="nt" onclick="showMonth(9,this)">Out</button>
+  <button class="nt" onclick="showMonth(10,this)">Nov</button>
+  <button class="nt" onclick="showMonth(11,this)">Dez</button>
+</div>
+
+<div class="main">
+
+<!-- ══ OVERVIEW ANUAL ══ -->
+<div class="view act" id="view-anual">
+
+  <!-- CONCEITO -->
+  <div class="conceito">
+    <div class="c-left">
+      <h1>A escolha <span>que vale mais</span></h1>
+      <p>Conceito 2026 · JK Shopping Brasília</p>
+    </div>
+    <div class="c-right">
+      <div class="eixo-pill"><div class="ep-tag">Identidade</div><div class="ep-name">EU ME RECONHEÇO</div><div class="ep-sub">Vale mais quando você se reconhece</div></div>
+      <div class="eixo-pill"><div class="ep-tag">Relação</div><div class="ep-name">NÓS NOS ENCONTRAMOS</div><div class="ep-sub">Vale mais quando tem companhia</div></div>
+      <div class="eixo-pill"><div class="ep-tag">Território</div><div class="ep-name">AQUI EU VIVO</div><div class="ep-sub">Vale mais quando é um respiro na sua vida</div></div>
+      <div class="eixo-pill"><div class="ep-tag">Escolha</div><div class="ep-name">O QUE EU CONSUMO</div><div class="ep-sub">Vale mais quando te leva além do destino</div></div>
+    </div>
+  </div>
+
+  <!-- CTC STRIP -->
+  <div class="ctc-strip">
+    <div class="ct-badge">🎰 COMPROU. TROCOU. CONCORREU.</div>
+    <div>
+      <div class="ct-desc">A promoção que une todos os eixos: a cada R$100 em compras, 1 número da sorte. Sorteios mensais de R$20 mil · R$30 mil (Mães e Pais) · R$100 mil (Natal)</div>
+      <div class="ct-mec">Lançamento: Março 2026 · App JK · Mecânica: Compre → Cadastre nota → Concorra · CTA: Baixe o app · Cadastre sua nota</div>
+    </div>
+  </div>
+
+  <!-- PROPORTION STRIP -->
+  <div class="prop-strip">
+    <div class="ps-lbl">Proporção<br>anual</div>
+    <div class="ps-wrap">
+      <div class="ps-bar">
+        <div class="ps-F" style="width:35%"></div>
+        <div class="ps-S" style="width:40%"></div>
+        <div class="ps-C" style="width:15%"></div>
+        <div class="ps-P" style="width:10%"></div>
+      </div>
+      <div class="ps-leg">
+        <div class="ps-li" style="color:rgba(255,255,255,.85)"><div class="ps-dot" style="background:var(--F)"></div>F Frequência — 35%</div>
+        <div class="ps-li" style="color:rgba(255,255,255,.85)"><div class="ps-dot" style="background:var(--S)"></div>S Sazonal + Evento — 40%</div>
+        <div class="ps-li" style="color:rgba(255,255,255,.85)"><div class="ps-dot" style="background:var(--C)"></div>C Contextual — 15%</div>
+        <div class="ps-li" style="color:rgba(255,255,255,.85)"><div class="ps-dot" style="background:var(--P)"></div>P CTC Promoção — 10%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANNUAL TIMELINE TABLE -->
+  <div class="yr-tl">
+    <table class="yr-tbl" id="ytbl"></table>
+  </div>
+
+  <div class="slbl">Meses críticos — planejamento com 60 dias de antecedência</div>
+  <div class="info-g">
+    <div class="ic cr"><div class="ic-t">Março 🚀 — Lançamento CTC</div><div class="ic-b">Campanha Comprou.Trocou.Concorreu. vai ao ar. Frase: "Começou! Toda compra pode virar R$20 mil." 7 posts de promoção + Dia da Mulher + Distrithai + Cerrado Feminino.</div></div>
+    <div class="ic cr"><div class="ic-t">Maio 🏆 — Mães R$30 mil</div><div class="ic-b">Maior sorteio do 1º sem. 23 posts · SBT Mãe é Tudo · Parque Copa do Mundo abre 15/05 · Arraiá 10ª Ed. 29–31/05 · Diecast 02/05.</div></div>
+    <div class="ic cr"><div class="ic-t">Novembro — Aniversário + BF + CTC</div><div class="ic-b">Papai Noel 07/11 · 13 anos 15/11 · Black Friday 27/11 · CTC R$20 mil. Frase: "Além do desconto, você ainda concorre." 23 posts = mês mais denso.</div></div>
+    <div class="ic cr"><div class="ic-t">Dezembro 🎄 — Natal R$100 mil</div><div class="ic-b">CTC R$100 mil. Natal TEA 06 e 13/12. Cantatas + Tardes Divertidas todo fim de semana. 27 posts = mês de maior volume do ano.</div></div>
+  </div>
+  <div class="slbl">Meses de oportunidade — territórios menos disputados</div>
+  <div class="info-g">
+    <div class="ic op"><div class="ic-t">Janeiro — Fidelização sem prêmio</div><div class="ic-b">CTC ainda não ativo. Sorteio Jeep 03/01 mantém atenção. Magic Ocean + Invasão Alien garantem fluxo. Construir vínculo antes da campanha.</div></div>
+    <div class="ic op"><div class="ic-t">Agosto 🏆 — Pais R$30 mil</div><div class="ic-b">9 posts de CTC = maior proporção promoção do ano. Desfile IFB 21/08. Cerveja 07/08. Rotina como narrativa principal.</div></div>
+    <div class="ic op"><div class="ic-t">Setembro — Território exclusivo</div><div class="ic-b">Festival Viva Fun 03–07/09 · Zero500 20/09 · SCOUTING 19/09 · Miraculous 25/09. Setembro pertence ao JK — criar tema unificador.</div></div>
+  </div>
+</div>
+
+<!-- ══ EIXOS ══ -->
+<div class="view" id="view-eixos">
+  <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;margin-bottom:4px;">Eixos × Editorias</div>
+  <div style="font-size:10.5px;color:#999;font-family:'Space Mono',monospace;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;">Como cada eixo narrativo alimenta as linhas editoriais do JK</div>
+
+  <!-- EDITORIAL LEGEND -->
+  <div class="ed-legend">
+    <div class="edl-item" style="color:var(--ed1)"><div class="edl-dot" style="background:var(--ed1)"></div>EU ME RECONHEÇO — Identidade &amp; Estilo</div>
+    <div class="edl-item" style="color:var(--ed2)"><div class="edl-dot" style="background:var(--ed2)"></div>NÓS NOS ENCONTRAMOS — Entret. &amp; Gastronomia</div>
+    <div class="edl-item" style="color:var(--ed3)"><div class="edl-dot" style="background:var(--ed3)"></div>AQUI EU VIVO — Rotina &amp; Serviços</div>
+    <div class="edl-item" style="color:var(--ed4)"><div class="edl-dot" style="background:var(--ed4)"></div>O QUE ACONTECE — Eventos &amp; Protagonismo</div>
+    <div class="edl-item" style="color:var(--ed5)"><div class="edl-dot" style="background:var(--ed5)"></div>O QUE EU CONSUMO — Varejo &amp; CTC</div>
+  </div>
+
+  <div style="font-size:10.5px;color:#666;margin-bottom:16px;line-height:1.6;max-width:800px;">A promoção <strong>Comprou.Trocou.Concorreu.</strong> é a camada que integra todos os eixos: toda escolha narrativa (se reconhecer, se encontrar, viver aqui, consumir) gera um comportamento de compra — e cada compra gera um número da sorte. A promoção vira narrativa, não só mecânica.</div>
+
+  <table class="etbl" id="etbl"></table>
+  <div class="slbl" style="margin-top:22px;">Linhas editoriais por eixo — formatos recomendados</div>
+  <div id="edet"></div>
+</div>
+
+<!-- ══ MONTHS ══ -->
+<div id="mc"></div>
+
+</div><!-- /main -->
+
+<script>
+const TC={F:'var(--F)',S:'var(--S)',C:'var(--C)',E:'var(--E)',P:'var(--P)'};
+const TN={F:'Frequência',S:'Sazonal',C:'Contextual',E:'Sazonal',P:'CTC Promoção'};
+
+const EIXOS=[
+  {nm:'EU ME RECONHEÇO',sub:'Identidade',fr:'Vale mais quando você se reconhece',pr:'Moda, beleza, estilo e comunidade como forma de se reconhecer',
+   lines:['LOOK DO MOMENTO','TODOS TÊM SEU ESPAÇO','O QUE NÃO PODE FALTAR','REPLICANDO O LOOK'],
+   fmts:['Carrossel','Carrossel','Carrossel','Reel'],
+   cr:{
+    ed1:'A vitrine é espelho antes de ser vitrine. O look que a pessoa escolhe no JK comunica quem ela é. Conteúdo de identidade de estilo tem maior índice de salvamento.',
+    ed2:'O restaurante que eu escolho, o filme que eu vejo — são atos de identidade. O entretenimento do JK mostra que lazer diz quem você é.',
+    ed3:'Academia, clínica, barbearia — serviços como expressão de identidade. Quem você escolhe cuidar diz quem você é.',
+    ed4:'Participar da Nossa Horta ou de um evento da Arena expõe os valores de quem participa. Comunidade é identidade coletiva tornada visível.',
+    ed5:'Cada produto comprado é um voto em quem você quer ser. O varejo não vende utilidades — vende versões de si mesmo. E cada compra = número da sorte.',
+   }},
+  {nm:'NÓS NOS ENCONTRAMOS',sub:'Relação',fr:'Vale mais quando tem companhia',pr:'Sair de casa, encontrar quem se gosta e construir memória juntos',
+   lines:['PROGRAMAÇÃO FDS','COMER COM OS OLHOS','A VOZ DO JK','MATCH CINEFLIX'],
+   fmts:['Stories','Feed/Reel','Reel','Carrossel'],
+   cr:{
+    ed1:'Comprar roupa junto é um ato relacional. "O que você acha desse?" é uma das perguntas mais repetidas nas lojas de moda.',
+    ed2:'Cinema, shows e restaurantes existem para ser vividos com o outro. É onde o "vamos?" acontece antes do "vou". Motor mais poderoso do eixo relacional.',
+    ed3:'A barbearia onde o pai leva o filho. A academia onde o casal treina junto. Serviços como ritual de vínculo — não apenas funcionalidade.',
+    ed4:'Eventos comunitários criam laços entre pessoas que não se conheciam. Do Arraiá ao Distrithai — a Arena do JK é onde isso acontece.',
+    ed5:'Presentes são o varejo do eixo relação. O ato de consumo mais carregado de intenção. A promoção CTC amplifica: "você ainda concorre ao presentear."',
+   }},
+  {nm:'AQUI EU VIVO',sub:'Território',fr:'Vale mais quando é um respiro na sua vida',pr:'O JK poupa tempo sem tirar o prazer de estar nele',
+   lines:['MEU DIA NO JK','O INUSITADO ACONTECE','CLIQUE DA SEMANA','POV: SÓ O JK TEM'],
+   fmts:['Reel','Reel/Feed','UGC','Reel'],
+   cr:{
+    ed1:'A moda do dia a dia — não só a de festa. O JK como o lugar onde a pessoa monta seu look de semana, não apenas o look de evento.',
+    ed2:'A praça de alimentação no almoço de segunda. O cinema na quarta à noite. Entretenimento como âncora de rotina — não apenas de ocasião especial.',
+    ed3:'Lotérica, banco, academia, clínica — a rotina de serviços é o maior ativo invisível do JK. É o que faz o público voltar sem precisar de evento.',
+    ed4:'Nossa Horta acontece toda semana. Bebê Fofura e Tardes Divertidas têm calendário fixo. A comunidade que volta porque tem algo acontecendo sempre.',
+    ed5:'A rotina de compras ancora a frequência — e cada compra gera número da sorte. Compre e Estacione reforça o benefício do dia a dia.',
+   }},
+  {nm:'O QUE ACONTECE',sub:'Evento',fr:'Quem é protagonista aqui sabe que pertence',pr:'Eventos e protagonismo que ampliam a cena do JK',
+   lines:['QUEM FAZ O JK','TÁ NO FEED, TÁ AO VIVO','BASTIDORES JK','COMPROU. TROCOU. CONCORREU.'],
+   fmts:['Reel','Stories/Live','Reel/Stories','Feed/Reel'],
+   cr:{
+    ed1:'Desfile IFB, Expo Rap Fashion, SCOUTING — a moda como evento. As lojas se tornam palco e o público, audiência e ator ao mesmo tempo.',
+    ed2:'Copa na Praça de Alimentação, shows na Arena, Distrithai no estacionamento. O entretenimento ao vivo é o conteúdo de maior alcance orgânico.',
+    ed3:'Setembro Amarelo, Nossa Horta, Outubro Rosa — serviços como pauta de evento. O JK que cuida vai além do consumo.',
+    ed4:'A comunidade que organiza Arraiá, Zero500, Festival Viva Fun — são os verdadeiros personagens do JK. Quem faz o JK é o conteúdo mais compartilhado.',
+    ed5:'Cada evento é uma oportunidade de compra — e cada compra é um número da sorte. "Tá no feed, tá ao vivo" é o formato que une evento e CTC.',
+   }},
+  {nm:'O QUE EU CONSUMO',sub:'Escolha',fr:'Vale mais quando te leva além do destino',pr:'A escolha não começa e nem termina na primeira loja',
+   lines:['COMBINADOS P/ TODOS','VIVO NO JK','COMPRE E ESTACIONE','JK CASHBACK'],
+   fmts:['Carrossel','Feed','Feed','Feed'],
+   cr:{
+    ed1:'A loja que a pessoa não planejava entrar e não saiu de mãos vazias. Curadoria de "você não sabia que precisava disso." Estilo como descoberta.',
+    ed2:'O restaurante que virou favorito porque estava na praça. Show que a pessoa viu por acaso. Entretenimento como portal de descoberta de outros consumos.',
+    ed3:'A academia que a pessoa descobriu depois de anos no JK. Serviços como descoberta tardia que gera a mais alta recorrência.',
+    ed4:'Participar de um evento e descobrir uma loja. Comprar numa loja e descobrir um evento. Comunidade como motor de circulação cruzada.',
+    ed5:'CTC é o motor do eixo. Cada compra = número da sorte. A promoção que transforma o ato de consumir em consequência de escolha — não só mecânica.',
+   }}
+];
+
+const ED_NAMES={ed1:'EU ME RECONHEÇO',ed2:'NÓS NOS ENCONTRAMOS',ed3:'AQUI EU VIVO',ed4:'O QUE ACONTECE',ed5:'O QUE EU CONSUMO'};
+const ED_COLORS={ed1:'var(--ed1)',ed2:'var(--ed2)',ed3:'var(--ed3)',ed4:'var(--ed4)',ed5:'var(--ed5)'};
+const EK=['ed1','ed2','ed3','ed4','ed5'];
+
+// CTC data
+const CTC_DATA=[
+  {mes:'JANEIRO',frase:'— Campanha ainda não iniciada',premio:'—',tema:'Fidelização'},
+  {mes:'FEVEREIRO',frase:'— Campanha ainda não iniciada',premio:'—',tema:'Carnaval & Cultura'},
+  {mes:'MARÇO 🚀',frase:'Começou! Agora, toda compra pode virar R$20 mil.',premio:'R$20.000',tema:'Lançamento CTC'},
+  {mes:'ABRIL',frase:'Sua Páscoa pode ser mais doce (e mais premiada).',premio:'R$20.000',tema:'Páscoa Premiada'},
+  {mes:'MAIO 🏆',frase:'Presente para ela. R$30 mil para você.',premio:'R$30.000',tema:'Dia das Mães'},
+  {mes:'JUNHO',frase:'Declare seu amor e concorra a R$20 mil.',premio:'R$20.000',tema:'Copa + Namorados'},
+  {mes:'JULHO',frase:'Compras de férias, chances de verdade.',premio:'R$20.000',tema:'Copa Final + Família'},
+  {mes:'AGOSTO 🏆',frase:'Presente para ele. R$30 mil pra você.',premio:'R$30.000',tema:'Dia dos Pais'},
+  {mes:'SETEMBRO',frase:'Nova estação. Novas chances de ganhar.',premio:'R$20.000',tema:'Território'},
+  {mes:'OUTUBRO',frase:'Diversão garantida. E R$20 mil na conta.',premio:'R$20.000',tema:'Halloween + Crianças'},
+  {mes:'NOVEMBRO',frase:'Além do desconto, você ainda concorre.',premio:'R$20.000',tema:'Aniversário + Black Friday'},
+  {mes:'DEZEMBRO 🎄',frase:'Presente de Natal que vale R$100 mil para você.',premio:'R$100.000',tema:'Natal Inclusivo'}
+];
+
+const MONTHS=[
+  {nm:'Janeiro',th:'Fidelização — O JK como hábito do ano novo',f:45,s:40,e:0,c:15,p:0,
+   ctc_idx:0,
+   events:['Sorteio Jeep 03/01','Invasão Alien (até 31/03)','Parque Magic Ocean 12/01–01/03','Exposição Hansik (até 08/02)','Bebê Fofura · Tardes Divertidas','🎬 Globo de Ouro 11/01','🎬 Marty Supreme 22/01'],
+   posts:[
+    {n:1,d:'01',wk:'QUI',ed:'BASTIDORES JK',ab:'Sorteio do carro Jeep: hoje é o dia! Quem vai ganhar?',fmt:'Stories/Live',t:'E'},
+    {n:2,d:'03',wk:'SÁB',ed:'LOOK DO MOMENTO',ab:'Look verão: combinações leves das lojas JK para arrasar',fmt:'Carrossel',t:'F'},
+    {n:3,d:'05',wk:'SEG',ed:'PROGRAMAÇÃO FDS',ab:'FDS com Invasão Alien + Parque Magic Ocean: roteiro completo',fmt:'Stories',t:'E'},
+    {n:4,d:'07',wk:'QUA',ed:'COMER COM OS OLHOS',ab:'Prato da semana: opção fresca e leve na praça do JK',fmt:'Feed',t:'F'},
+    {n:5,d:'09',wk:'SEX',ed:'POV: SÓ O JK TEM',ab:'POV: começar 2026 com tudo que precisa num só lugar',fmt:'Reel',t:'F'},
+    {n:6,d:'10',wk:'SÁB',ed:'BASTIDORES JK',ab:'Exposição Hansik por dentro: arte e cultura coreana no JK',fmt:'Reel',t:'E'},
+    {n:7,d:'12',wk:'SEG',ed:'TODOS TÊM SEU ESPAÇO',ab:'Perfil do mês: universitário de volta às aulas',fmt:'Carrossel',t:'F'},
+    {n:8,d:'14',wk:'QUA',ed:'MATCH CINEFLIX',ab:'Marty Supreme em cartaz: o que pedir na praça antes de assistir Timothée Chalamet?',fmt:'Carrossel',t:'F'},
+    {n:9,d:'15',wk:'QUI',ed:'QUEM FAZ O JK',ab:'1 dia na vida de quem faz o JK acontecer: bastidores reais',fmt:'Reel',t:'F'},
+    {n:10,d:'17',wk:'SÁB',ed:'CLIQUE DA SEMANA',ab:'Invasão Alien pelo olhar do público: mostre seu clique #CLIQUENOSJK',fmt:'UGC',t:'E'},
+    {n:11,d:'19',wk:'SEG',ed:'MEU DIA NO JK',ab:'Vlog: academia, banco e almoço — resolvi tudo sem sair do JK',fmt:'Reel',t:'F'},
+    {n:12,d:'21',wk:'QUA',ed:'COMBINADOS P/ TODOS',ab:'Volta às aulas: combinados de mochila, agenda e estilo no JK',fmt:'Carrossel',t:'F'},
+    {n:13,d:'22',wk:'QUI',ed:'PROGRAMAÇÃO FDS',ab:'Parque Magic Ocean: tudo que você precisa saber antes de ir',fmt:'Stories',t:'E'},
+    {n:14,d:'24',wk:'SÁB',ed:'O QUE NÃO PODE FALTAR',ab:'O que não pode faltar na mochila do universitário?',fmt:'Carrossel',t:'F'},
+    {n:15,d:'26',wk:'SEG',ed:'A VOZ DO JK',ab:'Influencer no Parque Magic Ocean: vale muito a pena?',fmt:'Reel',t:'E'},
+    {n:16,d:'28',wk:'QUA',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Bebê Fofura chegou: fofura ao vivo no Espaço Arte do JK',fmt:'Stories/Live',t:'E'},
+    {n:17,d:'29',wk:'QUI',ed:'COMPRE E ESTACIONE',ab:'Lembrete: a cada R$50 em compras, 1h a mais de estacionamento!',fmt:'Feed',t:'F'},
+    {n:18,d:'31',wk:'SÁB',ed:'POV: SÓ O JK TEM',ab:'Janeiro acabou mas a Invasão Alien ainda está aqui! Corra!',fmt:'Reel',t:'E'},
+   ],
+   ten:'Janeiro é mês de orçamento apertado pós-festas. Público presente nas férias (Magic Ocean + Invasão Alien) mas resistente ao gasto. CTC ainda não ativo.',
+   opp:'Magic Ocean garante fluxo de famílias. Volta às Aulas é o maior evento de varejo do bimestre. Sorteio Jeep 03/01 mantém atenção e fluxo de acompanhamento.'},
+  {nm:'Fevereiro',th:'Carnaval & Cultura — Escolha sua fantasia, viva seu estilo',f:40,s:45,e:0,c:15,p:0,
+   ctc_idx:1,
+   events:['Expo Águia Imperial 10–28/02','Tardes de Folia 15/02','Ressaquinha SmartFit 21/02','Realize com Pipoca 28/02','Magic Ocean (até 01/03)','Invasão Alien (até 31/03)','🎵 Grammy 01/02','🎬 O Morro dos Ventos Uivantes 14/02','🎬 Pânico 7 26/02'],
+   posts:[
+    {n:1,d:'01',wk:'DOM',ed:'MATCH CINEFLIX',ab:'🎵 Grammy hoje! Kendrick Lamar domina. Qual música toca enquanto você passeia no JK?',fmt:'Stories',t:'C'},
+    {n:2,d:'02',wk:'SEG',ed:'LOOK DO MOMENTO',ab:'Look de Carnaval: monte sua fantasia com peças das lojas JK',fmt:'Carrossel',t:'S'},
+    {n:2,d:'04',wk:'QUA',ed:'BASTIDORES JK',ab:'Exposição Águia Imperial chegou: samba e cultura de Ceilândia no JK',fmt:'Reel',t:'E'},
+    {n:3,d:'06',wk:'SEX',ed:'REPLICANDO O LOOK',ab:'Recriar o look da rainha do carnaval com itens das lojas JK',fmt:'Reel',t:'S'},
+    {n:4,d:'10',wk:'TER',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Exposição Escola de Samba Águia Imperial: abertura ao vivo!',fmt:'Stories/Live',t:'E'},
+    {n:5,d:'12',wk:'QUI',ed:'COMBINADOS P/ TODOS',ab:'Combo Carnaval: fantasia + maquiagem + acessórios no JK',fmt:'Carrossel',t:'S'},
+    {n:6,d:'14',wk:'SÁB',ed:'COMER COM OS OLHOS',ab:'Sabores de Carnaval na praça do JK: coma bem antes do bloco',fmt:'Feed',t:'S'},
+    {n:7,d:'15',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Tardes de Folia ao vivo! O JK em ritmo de carnaval',fmt:'Stories/Live',t:'E'},
+    {n:8,d:'16',wk:'SEG',ed:'O INUSITADO ACONTECE',ab:'As histórias mais inesquecíveis das Tardes de Folia',fmt:'Reel',t:'E'},
+    {n:9,d:'18',wk:'QUA',ed:'TODOS TÊM SEU ESPAÇO',ab:'Perfil do mês: a mãe prática — produtos essenciais no JK',fmt:'Carrossel',t:'F'},
+    {n:10,d:'19',wk:'QUI',ed:'MATCH CINEFLIX',ab:'O Morro dos Ventos Uivantes: o look dark romântico do filme + onde comprar no JK',fmt:'Carrossel',t:'F'},
+    {n:11,d:'21',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Ressaquinha SmartFit: como o JK cuida de você depois do Carnaval',fmt:'Reel',t:'E'},
+    {n:12,d:'23',wk:'SEG',ed:'MEU DIA NO JK',ab:'Pós-carnaval: o JK tem tudo pra você se recuperar e retomar a rotina',fmt:'Reel',t:'F'},
+    {n:13,d:'25',wk:'QUA',ed:'PROGRAMAÇÃO FDS',ab:'Último FDS de fevereiro: Parque Magic Ocean + cinema',fmt:'Stories',t:'E'},
+    {n:14,d:'26',wk:'QUI',ed:'BASTIDORES JK',ab:'Bastidores do Realize com Pipoca: o que esperar amanhã no cinema?',fmt:'Stories',t:'E'},
+    {n:15,d:'27',wk:'SEX',ed:'QUEM FAZ O JK',ab:'Quem organiza as Tardes de Folia — eles fazem o JK vibrar',fmt:'Reel',t:'F'},
+    {n:16,d:'28',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Realize com Pipoca: cinema sala 4 com convidados especiais!',fmt:'Stories/Live',t:'E'},
+   ],
+   ten:'Carnaval divide o público. Valentine\'s Day (14/02) e Carnaval (16/02) em sequência — risco de dispersão de voz. CTC ainda não ativo.',
+   opp:'Exposição Águia Imperial de Ceilândia é o conteúdo de identidade territorial mais forte do bimestre. O JK como palco da cultura da cidade.'},
+  {nm:'Março',th:'Lançamento CTC + Consciência — Campanha começa! Mulher, Consumidor e Páscoa',f:30,s:38,e:0,c:15,p:17,
+   ctc_idx:2,
+   events:['🚀 LANÇAMENTO CTC R$20k','Expo Rap Fashion 07–31/03','Parque de Páscoa 05/03–30/04','Loja Cerrado Feminino 07/03','Feira Adoção 14–15/03','Distrithai 27–28/03','Hora do Planeta 28/03','🏆 Oscar 15/03 — O Agente Secreto indicado!','🎬 Devoradores de Estrelas 19/03'],
+   posts:[
+    {n:1,d:'01',wk:'DOM',ed:'COMPROU. TROCOU. CONCORREU.',ab:'🚀 LANÇAMENTO: a promoção do ano chegou ao JK! R$100 = 1 número da sorte',fmt:'Reel',t:'P'},
+    {n:2,d:'02',wk:'SEG',ed:'COMO PARTICIPAR',ab:'Tutorial: compre, troque a nota pelo app e concorra a R$20 mil!',fmt:'Carrossel',t:'P'},
+    {n:3,d:'03',wk:'TER',ed:'BASTIDORES JK',ab:'Parque de Páscoa em montagem + campanha nova: dois motivos pra vir!',fmt:'Reel',t:'E'},
+    {n:4,d:'05',wk:'QUI',ed:'TUTORIAL DO APP',ab:'Passo a passo: como baixar o app e cadastrar sua nota em 3 minutos',fmt:'Reel',t:'P'},
+    {n:5,d:'07',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Expo Rap Fashion Romildo abre + Loja Cerrado Feminino: dois em um!',fmt:'Stories/Live',t:'E'},
+    {n:6,d:'08',wk:'DOM',ed:'TODOS TÊM SEU ESPAÇO',ab:'Dia Internacional da Mulher: Loja Cerrado Feminino celebra no JK!',fmt:'Carrossel',t:'C'},
+    {n:7,d:'09',wk:'SEG',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$20 mil? Filmamos clientes do JK respondendo',fmt:'Reel',t:'P'},
+    {n:8,d:'11',wk:'QUA',ed:'COMER COM OS OLHOS',ab:'Prato da semana: sabores que aquecem na virada de estação',fmt:'Feed',t:'F'},
+    {n:9,d:'13',wk:'SEX',ed:'PROGRAMAÇÃO FDS',ab:'FDS com Parque de Páscoa: caça aos ovos e mais chances de ganhar!',fmt:'Stories',t:'E'},
+    {n:10,d:'14',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Feira de Adoção Animal: encontre seu novo melhor amigo no JK!',fmt:'Stories/Live',t:'E'},
+    {n:11,d:'15',wk:'DOM',ed:'COMBINADOS P/ TODOS',ab:'Dia do Consumidor: consumo inteligente vale R$20 mil na promoção JK',fmt:'Carrossel',t:'C'},
+    {n:12,d:'15',wk:'DOM',ed:'MATCH CINEFLIX',ab:'🏆 Oscar hoje! O Agente Secreto com Wagner Moura concorre. Orgulho brasileiro em cartaz no JK.',fmt:'Stories',t:'C'},
+    {n:12,d:'16',wk:'SEG',ed:'COMO PARTICIPAR',ab:'📲 Lembrete diário: cadastrou a nota hoje? Cada R$100 = 1 chance!',fmt:'Stories',t:'P'},
+    {n:13,d:'18',wk:'QUA',ed:'A VOZ DO JK',ab:'Influencer explora a Expo Rap Fashion + testa o app da promoção',fmt:'Reel',t:'E'},
+    {n:14,d:'20',wk:'SEX',ed:'COMPROU. TROCOU. CONCORREU.',ab:'"Começou! Agora, toda compra pode virar R$20 mil." — KV oficial',fmt:'Feed',t:'P'},
+    {n:15,d:'23',wk:'SEG',ed:'MEU DIA NO JK',ab:'Meu dia: Parque de Páscoa + compras + nota cadastrada no app!',fmt:'Reel',t:'E'},
+    {n:16,d:'25',wk:'QUA',ed:'CONTAGEM REGRESSIVA',ab:'Distrithai já na semana que vem + sorteio se aproxima: compre já!',fmt:'Stories',t:'E'},
+    {n:17,d:'27',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Distrithai 10ª Ed. começa: culinária tailandesa invade o JK!',fmt:'Stories/Live',t:'E'},
+    {n:18,d:'28',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Distrithai dia 2 + Hora do Planeta: o JK apaga as luzes às 20h30',fmt:'Stories/Live',t:'E'},
+    {n:19,d:'30',wk:'SEG',ed:'URGÊNCIA — SORTEIO',ab:'⏰ Últimos dias para acumular números antes do sorteio! Cadastre já!',fmt:'Stories',t:'P'},
+   ],
+   ten:'Quatro datas editorialmente relevantes em março (Mulher, Consumidor, Distrithai, Hora do Planeta) + lançamento da CTC. Risco de dispersão. A CTC precisa ser o fio condutor.',
+   opp:'Lançamento da CTC em março é estratégico: antecede Páscoa e Dia das Mães. Tutorial do app + E se você ganhasse? + KV oficial = conjunto de posts de alta performance.'},
+  {nm:'Abril',th:'Páscoa Premiada — Cada ovo encontrado, mais um número da sorte',f:28,s:42,e:0,c:15,p:15,
+   ctc_idx:3,
+   events:['CTC R$20k — Páscoa Premiada','Dia Autismo 02/04 (Sr. Coelho Especial)','Páscoa Parceria Band 03–05/04','Copa Brasília Judô/Jiu 18–19/04','Zero500 26/04','Parque de Páscoa (até 30/04)','🎬 Super Mario Galaxy 02/04','🎬 O Diabo Veste Prada 2 30/04','🎬 Michael (MJ) 23/04'],
+   posts:[
+    {n:1,d:'01',wk:'QUA',ed:'COMPROU. TROCOU. CONCORREU.',ab:'"Sua Páscoa pode ser mais doce (e mais premiada)." — KV Abril',fmt:'Feed',t:'P'},
+    {n:2,d:'02',wk:'QUI',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Dia do Autismo: Sr. Coelho Especial recebe crianças às 9h — ao vivo!',fmt:'Stories/Live',t:'E'},
+    {n:3,d:'03',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Páscoa Parceria Band começa: 3 dias de magia na Praça Central!',fmt:'Stories/Live',t:'E'},
+    {n:4,d:'04',wk:'SÁB',ed:'COMER COM OS OLHOS',ab:'Ovos artesanais e doces de Páscoa na praça: nível alto demais!',fmt:'Feed',t:'E'},
+    {n:5,d:'05',wk:'DOM',ed:'O INUSITADO ACONTECE',ab:'Os momentos mais emocionantes dos 3 dias de Páscoa no JK',fmt:'Reel',t:'E'},
+    {n:6,d:'06',wk:'SEG',ed:'COMO PARTICIPAR',ab:'Páscoa premiada: cada compra no JK = mais chances de ganhar R$20 mil!',fmt:'Stories',t:'P'},
+    {n:7,d:'07',wk:'TER',ed:'LOOK DO MOMENTO',ab:'Look de Páscoa: cores pastéis e alegria nas lojas do JK',fmt:'Carrossel',t:'S'},
+    {n:8,d:'09',wk:'QUI',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$20 mil na Páscoa? Clientes do JK respondem!',fmt:'Reel',t:'P'},
+    {n:9,d:'11',wk:'SÁB',ed:'PROGRAMAÇÃO FDS',ab:'Parque de Páscoa ainda rolando: última semana de caça aos ovos!',fmt:'Stories',t:'E'},
+    {n:10,d:'13',wk:'SEG',ed:'CLIQUE DA SEMANA',ab:'Último ovo escondido no JK — quem achar posta com #CLIQUENOSJK',fmt:'UGC',t:'E'},
+    {n:11,d:'15',wk:'QUA',ed:'VIVO NO JK',ab:'Combo Páscoa: cinema + praça + presente + nota cadastrada no app!',fmt:'Feed',t:'S'},
+    {n:12,d:'16',wk:'QUI',ed:'MEU DIA NO JK',ab:'Como a Páscoa no JK virou tradição da minha família',fmt:'Reel',t:'S'},
+    {n:13,d:'18',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Copa Brasília de Judô e Jiu-jitsu: competição ao vivo!',fmt:'Stories/Live',t:'E'},
+    {n:14,d:'20',wk:'SEG',ed:'COMO PARTICIPAR',ab:'📲 Cadastrou a nota da Páscoa? Cada R$100 = 1 número da sorte',fmt:'Stories',t:'P'},
+    {n:15,d:'22',wk:'QUA',ed:'TODOS TÊM SEU ESPAÇO',ab:'Perfil do mês: jovens atletas — o JK que apoia o esporte',fmt:'Carrossel',t:'F'},
+    {n:16,d:'24',wk:'SEX',ed:'MATCH CINEFLIX',ab:'Super Mario Galaxy + O Diabo Veste Prada 2: dois mundos, um JK. Qual é o seu look?',fmt:'Carrossel',t:'F'},
+    {n:17,d:'26',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Zero500 no JK Top Show: sustentabilidade que faz barulho!',fmt:'Stories/Live',t:'E'},
+    {n:18,d:'28',wk:'TER',ed:'URGÊNCIA — SORTEIO',ab:'⏰ Semana do sorteio! Seus números estão cadastrados? Corra!',fmt:'Stories',t:'P'},
+    {n:19,d:'30',wk:'QUI',ed:'BASTIDORES JK',ab:'Maio chegando: Dia das Mães R$30 MIL + Arraiá + Copa. Prepare-se!',fmt:'Stories',t:'P'},
+   ],
+   ten:'Dia do Autismo (02/04) e Páscoa (03/04) em sequência imediata. O risco é tratar o Dia do Autismo como item de agenda — precisa ser narrativa genuína de cuidado.',
+   opp:'Dia do Autismo é o prólogo do Natal Inclusivo TEA. Criar narrativa de cuidado ao longo do ano diferencia o JK de todos os concorrentes. A CTC integra Páscoa com promoção.'},
+  {nm:'Maio',th:'Dia das Mães R$30 MIL — Presente para ela. R$30 mil para você.',f:22,s:48,e:0,c:10,p:20,
+   ctc_idx:4,
+   events:['CTC R$30k — Mães 🏆','Diecast 02/05','SBT Mãe é Tudo 09/05','Parque Copa do Mundo 15/05–19/07','Rei e Rainha da Derivada 23–24/05','Arraiá JK 10ª Ed. 29–31/05','🎬 Star Wars: O Mandaloriano e Grogu 21/05','🎬 Mortal Kombat II 08/05'],
+   posts:[
+    {n:1,d:'01',wk:'SEX',ed:'COMPROU. TROCOU. CONCORREU.',ab:'💛 KV Maio: "Presente para ela. R$30 mil para você." — maior sorteio do semestre!',fmt:'Feed',t:'P'},
+    {n:2,d:'02',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Diecast: exposição e troca de carrinhos colecionáveis abriu no JK!',fmt:'Stories/Live',t:'E'},
+    {n:3,d:'04',wk:'SEG',ed:'LOOK DO MOMENTO',ab:'Presente para a mãe fashionista: o look mais lindo das lojas JK',fmt:'Carrossel',t:'S'},
+    {n:4,d:'05',wk:'TER',ed:'COMO PARTICIPAR',ab:'R$30 MIL no Dia das Mães: quanto mais você comprar o presente, mais chances!',fmt:'Stories',t:'P'},
+    {n:5,d:'06',wk:'QUA',ed:'O QUE NÃO PODE FALTAR',ab:'Kit presente Dia das Mães: o que não pode faltar para cada tipo de mãe',fmt:'Carrossel',t:'S'},
+    {n:6,d:'07',wk:'QUI',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$30 mil no Dia das Mães? Surpreende a família toda!',fmt:'Reel',t:'P'},
+    {n:7,d:'08',wk:'SEX',ed:'BASTIDORES JK',ab:'SBT Mãe é Tudo amanhã: bastidores do evento mais esperado do mês',fmt:'Stories',t:'E'},
+    {n:8,d:'09',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'SBT Mãe é Tudo ao vivo na Praça Central do JK! Celebre com a gente',fmt:'Stories/Live',t:'E'},
+    {n:9,d:'11',wk:'SEG',ed:'VIVO NO JK',ab:'Combo Dia das Mães + R$30 mil: brunch + presente + mais chances de ganhar!',fmt:'Feed',t:'P'},
+    {n:10,d:'13',wk:'QUA',ed:'COMER COM OS OLHOS',ab:'Almoço especial de Dia das Mães: mesas e menus imperdíveis na praça',fmt:'Feed',t:'S'},
+    {n:11,d:'14',wk:'QUI',ed:'URGÊNCIA — SORTEIO',ab:'⏰ ÚLTIMA SEMANA! Sorteio R$30 mil Dia das Mães se aproxima. Cadastre!',fmt:'Stories',t:'P'},
+    {n:12,d:'15',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Parque Copa do Mundo abre hoje na Praça Central! Venha viver!',fmt:'Stories/Live',t:'E'},
+    {n:13,d:'16',wk:'SÁB',ed:'A VOZ DO JK',ab:'Influencer leva a família ao Parque Copa do Mundo no JK',fmt:'Reel',t:'E'},
+    {n:14,d:'18',wk:'SEG',ed:'CLIQUE DA SEMANA',ab:'Melhor foto no Parque Copa do Mundo! Use #COPANOSJK',fmt:'UGC',t:'E'},
+    {n:15,d:'20',wk:'QUA',ed:'COMO PARTICIPAR',ab:'📲 Copa + Compras + Chances: cada R$100 no JK = 1 número da sorte!',fmt:'Stories',t:'P'},
+    {n:15,d:'21',wk:'QUI',ed:'MATCH CINEFLIX',ab:'🚀 Star Wars: O Mandaloriano e Grogu em cartaz! Presente pra ele no JK + número extra na CTC.',fmt:'Stories',t:'C'},
+    {n:16,d:'22',wk:'SEX',ed:'BASTIDORES JK',ab:'Rei e Rainha da Derivada: bastidores do evento que homenageia a 3ª idade',fmt:'Stories',t:'E'},
+    {n:17,d:'23',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Rei e Rainha da Derivada: elegância e história ao vivo no JK',fmt:'Stories/Live',t:'E'},
+    {n:18,d:'25',wk:'SEG',ed:'QUEM FAZ O JK',ab:'Os organizadores do Arraiá JK 10ª Edição: quem cria a magia',fmt:'Reel',t:'E'},
+    {n:19,d:'27',wk:'QUA',ed:'BASTIDORES JK',ab:'Arraiá JK já na sexta: decoração, música, comida — bastidores ao vivo',fmt:'Reel',t:'E'},
+    {n:20,d:'28',wk:'QUI',ed:'LOOK DO MOMENTO',ab:'Look de festa junina: como arrasar com peças das lojas JK',fmt:'Carrossel',t:'E'},
+    {n:21,d:'29',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Arraiá JK 10ª Ed. começa! Cobertura ao vivo',fmt:'Stories/Live',t:'E'},
+    {n:22,d:'30',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Arraiá JK dia 2: forró, quadrilha e muito mais!',fmt:'Stories/Live',t:'E'},
+    {n:23,d:'31',wk:'DOM',ed:'O INUSITADO ACONTECE',ab:'O inusitado do Arraiá JK 10ª edição que todo mundo está comentando',fmt:'Reel',t:'E'},
+   ],
+   ten:'Maio tem sobrecarga editorial — Mães (09/05), Copa chegando (15/05), Arraiá (29–31/05) e dois eventos de nicho. Mães é a narrativa principal, os outros são sub-histórias.',
+   opp:'R$30 mil de prêmio + SBT Mãe é Tudo = o maior sorteio do 1º semestre. Arraiá na 10ª edição é marco de tradição. Parque Copa do Mundo antecipa o clima de junho.'},
+  {nm:'Junho',th:'Copa + Namorados — Declare seu amor e concorra a R$20 mil',f:25,s:42,e:0,c:15,p:18,
+   ctc_idx:5,
+   events:['CTC R$20k — Copa + Namorados','Copa do Mundo Abertura 11/06','Namorados 12/06','Brasil × Marrocos 13/06 19h','Brasil × Haiti 19/06 22h','Brasil × Escócia 24/06 19h','Campanha do Agasalho','🎬 Se Eu Fosse Você 3 04/06','🎬 Toy Story 5 18/06','🎬 Supergirl 25/06','🏆 BET Awards 28/06'],
+   posts:[
+    {n:1,d:'01',wk:'SEG',ed:'COMPROU. TROCOU. CONCORREU.',ab:'"Declare seu amor e concorra a R$20 mil." — KV Junho',fmt:'Feed',t:'P'},
+    {n:1,d:'04',wk:'QUI',ed:'MATCH CINEFLIX',ab:'🎬 Se Eu Fosse Você 3 em cartaz! O JK tem o jantar antes, o snack durante e o presente depois.',fmt:'Stories',t:'C'},
+    {n:2,d:'03',wk:'QUA',ed:'LOOK DO MOMENTO',ab:'Look Copa + Namorados: do verde-amarelo ao romântico nas lojas JK',fmt:'Carrossel',t:'S'},
+    {n:3,d:'05',wk:'SEX',ed:'COMO PARTICIPAR',ab:'Junho duplo: Namorados + Copa = compras + mais números da sorte!',fmt:'Stories',t:'P'},
+    {n:4,d:'08',wk:'SEG',ed:'COMBINADOS P/ TODOS',ab:'Guia Dia dos Namorados: presentes para cada tipo de casal no JK',fmt:'Carrossel',t:'S'},
+    {n:5,d:'10',wk:'QUA',ed:'BASTIDORES JK',ab:'Amanhã começa: o JK monta o maior telão pra você torcer junto!',fmt:'Stories',t:'E'},
+    {n:6,d:'11',wk:'QUI',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Abertura da Copa do Mundo ao vivo no JK! É hoje!',fmt:'Stories/Live',t:'E'},
+    {n:7,d:'12',wk:'SEX',ed:'VIVO NO JK',ab:'Dia dos Namorados no JK: combo cinema + jantar = presente + mais sorte!',fmt:'Feed',t:'P'},
+    {n:8,d:'13',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'BRASIL × MARROCOS 19h — torça com a gente na Praça de Alimentação!',fmt:'Stories/Live',t:'E'},
+    {n:9,d:'15',wk:'SEG',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$20 mil durante a Copa? Clientes do JK respondem!',fmt:'Reel',t:'P'},
+    {n:10,d:'17',wk:'QUA',ed:'CLIQUE DA SEMANA',ab:'Melhor foto da torcida no JK! Marque e concorra a brindes',fmt:'UGC',t:'E'},
+    {n:11,d:'18',wk:'QUI',ed:'CAMPANHA DO AGASALHO',ab:'Campanha do Agasalho JK: doe um agasalho e aqueça quem precisa',fmt:'Carrossel',t:'C'},
+    {n:12,d:'19',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'BRASIL × HAITI 22h — noite de Copa na Praça de Alimentação do JK',fmt:'Stories/Live',t:'E'},
+    {n:13,d:'20',wk:'SÁB',ed:'COMO PARTICIPAR',ab:'📲 Cada compra no JK = 1 número. Veja seus números no app agora!',fmt:'Stories',t:'P'},
+    {n:14,d:'22',wk:'SEG',ed:'O INUSITADO ACONTECE',ab:'O gol que fez o JK explodir: histórias da torcida mais animada',fmt:'Reel',t:'E'},
+    {n:15,d:'24',wk:'QUA',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'BRASIL × ESCÓCIA 19h — último jogo da fase de grupos! Vai, Brasil!',fmt:'Stories/Live',t:'E'},
+    {n:16,d:'26',wk:'SEX',ed:'URGÊNCIA — SORTEIO',ab:'⏰ Sorteio R$20 mil se aproxima! Últimos dias pra acumular números',fmt:'Stories',t:'P'},
+    {n:17,d:'27',wk:'SÁB',ed:'MATCH CINEFLIX',ab:'Toy Story 5 + Se Eu Fosse Você 3: dois filmes, toda a família no JK. E cada ingresso vale número na CTC.',fmt:'Carrossel',t:'F'},
+    {n:18,d:'29',wk:'SEG',ed:'MEU DIA NO JK',ab:'Junho foi incrível: Copa, amor e muito mais no JK',fmt:'Reel',t:'F'},
+   ],
+   ten:'Namorados (12/06) e Brasil × Marrocos (13/06) em dias consecutivos. Risco de dispersão de voz. Criar conteúdo que conecta as duas datas.',
+   opp:'Praça de Alimentação como espaço oficial de transmissão. Parceria com restaurantes para combos de torcida. CTC: "Declare seu amor e concorra" integra Namorados + promoção.'},
+  {nm:'Julho',th:'Copa Final + Família — Compras de férias, chances de verdade',f:30,s:45,e:0,c:13,p:12,
+   ctc_idx:6,
+   events:['CTC R$20k — Férias + Copa Final','Summaê 04/07','Copa Semifinal 14–15/07','Disputa 3º lugar 18/07','Final Copa 19/07','Parque Magic Authentic 23/07–31/08','Dia dos Avós 26/07','🎬 Minions 3 01/07','🎬 Moana 09/07','🎬 A Odisseia 16/07','🎬 Homem-Aranha: Um Novo Dia 31/07'],
+   posts:[
+    {n:1,d:'01',wk:'QUA',ed:'COMPROU. TROCOU. CONCORREU.',ab:'"Compras de férias, chances de verdade." — KV Julho',fmt:'Feed',t:'P'},
+    {n:2,d:'03',wk:'SEX',ed:'COMBINADOS P/ TODOS',ab:'Inverno chegou: combinados de peças quentinhas das lojas JK',fmt:'Carrossel',t:'F'},
+    {n:3,d:'04',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Summaê no JK: moda, estilo e cultura em um só lugar!',fmt:'Stories/Live',t:'E'},
+    {n:4,d:'05',wk:'DOM',ed:'COMO PARTICIPAR',ab:'Férias = mais tempo de compra = mais números da sorte. Cadastre tudo!',fmt:'Stories',t:'P'},
+    {n:5,d:'07',wk:'TER',ed:'GANHADORES JK',ab:'🏆 Websérie Ganhadores: conheça o sortudo do mês passado!',fmt:'Reel',t:'P'},
+    {n:6,d:'09',wk:'QUI',ed:'LOOK DO MOMENTO',ab:'Look de inverno: peças quentinhas e estilosas das lojas JK',fmt:'Carrossel',t:'F'},
+    {n:7,d:'11',wk:'SÁB',ed:'CAMPANHA DO AGASALHO',ab:'Campanha do Agasalho: seu JK aquece quem mais precisa — doe agora!',fmt:'Carrossel',t:'C'},
+    {n:8,d:'13',wk:'SEG',ed:'COMER COM OS OLHOS',ab:'Comfort food de inverno: pratos que aquecem na praça do JK',fmt:'Feed',t:'F'},
+    {n:9,d:'14',wk:'TER',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Semifinal da Copa 16h — o JK reuniu a cidade inteira!',fmt:'Stories/Live',t:'E'},
+    {n:10,d:'15',wk:'QUA',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'2ª Semifinal 16h — quem vai pra final? Estamos no JK para ver!',fmt:'Stories/Live',t:'E'},
+    {n:11,d:'17',wk:'SEX',ed:'E SE VOCÊ GANHASSE?',ab:'Especial Copa: e se você ganhasse R$20 mil na semana da final?',fmt:'Reel',t:'P'},
+    {n:12,d:'18',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Disputa de 3º lugar 18h — Copa chegando ao fim no JK',fmt:'Stories/Live',t:'E'},
+    {n:13,d:'19',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'FINAL DA COPA DO MUNDO 16h — maior cobertura do JK em 2026!',fmt:'Stories/Live',t:'E'},
+    {n:14,d:'20',wk:'SEG',ed:'O INUSITADO ACONTECE',ab:'A Final que ninguém vai esquecer: emoções da torcida no JK',fmt:'Reel',t:'E'},
+    {n:15,d:'22',wk:'QUA',ed:'BASTIDORES JK',ab:'Parque Magic Authentic abre em 1 dia: aventura pra toda família!',fmt:'Stories',t:'E'},
+    {n:16,d:'23',wk:'QUI',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Parque Magic Authentic abriu! Aventura ao vivo na Praça Central',fmt:'Stories/Live',t:'E'},
+    {n:17,d:'25',wk:'SÁB',ed:'MATCH CINEFLIX',ab:'Julho explode: Moana, Homem-Aranha e A Odisseia. Qual assistir primeiro? Qual snack combina com cada um?',fmt:'Carrossel',t:'F'},
+    {n:18,d:'26',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Dia dos Avós: palestra e encontro com os netos na Praça Central',fmt:'Stories/Live',t:'E'},
+    {n:19,d:'28',wk:'TER',ed:'URGÊNCIA — SORTEIO',ab:'⏰ Sorteio de julho se aproxima! Veja seus números no app JK',fmt:'Stories',t:'P'},
+    {n:20,d:'29',wk:'QUA',ed:'MEU DIA NO JK',ab:'Férias de julho: tudo que dá pra fazer no JK com os filhos',fmt:'Reel',t:'F'},
+    {n:21,d:'31',wk:'SEX',ed:'BASTIDORES JK',ab:'Agosto chegando: Dia dos Pais R$30 MIL! Spoilers exclusivos!',fmt:'Stories',t:'P'},
+   ],
+   ten:'Encerramento da Copa em 19/07 cria vazio emocional. Transição de Copa para férias e rotina de inverno precisa ser planejada com antecedência.',
+   opp:'Julho é o mês de maior permanência espontânea do ano. Melhor momento para lançar programa de fidelidade e capturar CRM. Websérie Ganhadores estreia — prova social máxima.'},
+  {nm:'Agosto',th:'Dia dos Pais R$30 MIL — Presente para ele. R$30 mil pra você.',f:28,s:42,e:0,c:15,p:15,
+   ctc_idx:7,
+   events:['CTC R$30k — Pais 🏆','Dia Nacional da Saúde 05/08','Dia Internacional da Cerveja 07/08','Dia dos Pais 09/08','Desfile IFB 21/08','Parque Magic Authentic (até 31/08)','🎬 Coyote vs. Acme 27/08'],
+   posts:[
+    {n:1,d:'01',wk:'SÁB',ed:'COMPROU. TROCOU. CONCORREU.',ab:'💛 KV Agosto: "Presente para ele. R$30 mil pra você." — 2º maior sorteio do ano!',fmt:'Feed',t:'P'},
+    {n:2,d:'03',wk:'SEG',ed:'LOOK DO MOMENTO',ab:'Look para o Dia dos Pais: o presente mais estiloso das lojas JK',fmt:'Carrossel',t:'S'},
+    {n:3,d:'04',wk:'TER',ed:'COMO PARTICIPAR',ab:'R$30 MIL no Dia dos Pais: quanto mais comprar o presente, mais chances!',fmt:'Stories',t:'P'},
+    {n:4,d:'05',wk:'QUA',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Dia Nacional da Saúde: atividades especiais na Praça Central do JK',fmt:'Stories/Live',t:'E'},
+    {n:5,d:'06',wk:'QUI',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$30 mil no Dia dos Pais? Clientes do JK respondem!',fmt:'Reel',t:'P'},
+    {n:6,d:'07',wk:'SEX',ed:'COMER COM OS OLHOS',ab:'Dia Internacional da Cerveja: drinks e petiscos da praça do JK',fmt:'Feed',t:'E'},
+    {n:7,d:'08',wk:'SÁB',ed:'O QUE NÃO PODE FALTAR',ab:'Kit presente Dia dos Pais + última chance de cadastrar notas antes do sorteio',fmt:'Carrossel',t:'P'},
+    {n:8,d:'09',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Dia dos Pais no JK: celebração ao vivo na Praça Central!',fmt:'Stories/Live',t:'E'},
+    {n:9,d:'10',wk:'SEG',ed:'O INUSITADO ACONTECE',ab:'Os pais mais emocionantes do JK: depoimentos que ninguém esperava',fmt:'Reel',t:'S'},
+    {n:10,d:'11',wk:'TER',ed:'URGÊNCIA — SORTEIO',ab:'⏰ ÚLTIMAS HORAS: sorteio R$30 mil Dia dos Pais! Cadastre sua nota!',fmt:'Stories',t:'P'},
+    {n:11,d:'12',wk:'QUA',ed:'VIVO NO JK',ab:'Combo Dia dos Pais: brunch + presente. Ele vai adorar — você concorre!',fmt:'Feed',t:'P'},
+    {n:12,d:'13',wk:'QUI',ed:'GANHADORES JK',ab:'🏆 Websérie Ganhadores: o sortudo de julho conta sua história',fmt:'Reel',t:'P'},
+    {n:13,d:'15',wk:'SÁB',ed:'CLIQUE DA SEMANA',ab:'Foto com o pai no Parque Magic Authentic! #PAISNOJK',fmt:'UGC',t:'E'},
+    {n:14,d:'17',wk:'SEG',ed:'BASTIDORES JK',ab:'Bastidores do Desfile IFB: a moda de Brasília vai tomar o JK!',fmt:'Reel',t:'E'},
+    {n:15,d:'19',wk:'QUA',ed:'MATCH CINEFLIX',ab:'Coyote vs. Acme em cartaz: nostalgia dos anos 90 que o JK também tem. O que comprar antes da sessão?',fmt:'Carrossel',t:'F'},
+    {n:16,d:'20',wk:'QUI',ed:'CONTAGEM REGRESSIVA',ab:'Desfile IFB amanhã! O JK vai ser palco da moda brasiliense',fmt:'Stories',t:'E'},
+    {n:17,d:'21',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Desfile IFB – Moda e Festivais: ao vivo na Praça Central do JK!',fmt:'Stories/Live',t:'E'},
+    {n:18,d:'22',wk:'SÁB',ed:'REPLICANDO O LOOK',ab:'Recriar os looks do Desfile IFB com peças das lojas JK',fmt:'Carrossel',t:'E'},
+    {n:19,d:'24',wk:'SEG',ed:'COMO PARTICIPAR',ab:'📲 Nova estação chegando: suas compras de agosto ainda valem números!',fmt:'Stories',t:'P'},
+    {n:20,d:'26',wk:'QUA',ed:'COMBINADOS P/ TODOS',ab:'Transição para a primavera: combinados para sair do inverno com estilo',fmt:'Carrossel',t:'F'},
+    {n:21,d:'28',wk:'SEX',ed:'QUEM FAZ O JK',ab:'Os estilistas que trouxeram o Desfile IFB ao JK: histórias reais',fmt:'Reel',t:'E'},
+    {n:22,d:'31',wk:'SEG',ed:'BASTIDORES JK',ab:'Setembro chegando: Festival Viva Fun + nova estação + novas chances!',fmt:'Stories',t:'P'},
+   ],
+   ten:'Agosto é mês de desaceleração pós-Copa. Conteúdo de frequência precisa de narrativa própria. Não deixar o mês ser apenas "ponte" para setembro.',
+   opp:'Desfile IFB é o conteúdo de moda mais autêntico do calendário — estudantes reais do DF. Websérie Ganhadores de julho reforça prova social do CTC. 9 posts de promoção = maior proporção.'},
+  {nm:'Setembro',th:'Território — Nova estação. Novas chances de ganhar.',f:32,s:43,e:0,c:15,p:10,
+   ctc_idx:8,
+   events:['CTC R$20k — Território + Primavera','Festival Viva Fun 03–07/09','Setembro Amarelo 04–05/09','Diecast 12/09','Desfile Primavera SCOUTING 19/09','Zero500 20/09','Parque Miraculous 25/09–25/10','🏆 MTV VMAs 06/09','🎬 Resident Evil 18/09','📺 Emmy Awards 14/09'],
+   posts:[
+    {n:1,d:'01',wk:'TER',ed:'COMPROU. TROCOU. CONCORREU.',ab:'"Nova estação. Novas chances de ganhar." — KV Setembro',fmt:'Feed',t:'P'},
+    {n:2,d:'06',wk:'DOM',ed:'MATCH CINEFLIX',ab:'🏆 MTV VMAs hoje! Sabrina Carpenter, Kendrick, Lady Gaga. Qual look você reproduziria com peças do JK?',fmt:'Stories',t:'C'},
+    {n:2,d:'02',wk:'QUA',ed:'BASTIDORES JK',ab:'Festival Viva Fun começa amanhã: bastidores do maior evento familiar!',fmt:'Stories',t:'E'},
+    {n:3,d:'03',wk:'QUI',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Festival Viva Fun abre no JK Top Show: diversão ao vivo!',fmt:'Stories/Live',t:'E'},
+    {n:4,d:'04',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Setembro Amarelo: JK em parceria com Depressão tem Cura. Vem conversar',fmt:'Stories/Live',t:'C'},
+    {n:5,d:'05',wk:'SÁB',ed:'COMO PARTICIPAR',ab:'Nova estação = novo guarda-roupa = novos números da sorte no app JK!',fmt:'Stories',t:'P'},
+    {n:6,d:'07',wk:'SEG',ed:'O INUSITADO ACONTECE',ab:'Os momentos mais inusitados do Festival Viva Fun no JK',fmt:'Feed',t:'E'},
+    {n:7,d:'09',wk:'QUA',ed:'LOOK DO MOMENTO',ab:'Look de primavera: cores e leveza das lojas JK',fmt:'Carrossel',t:'F'},
+    {n:8,d:'10',wk:'QUI',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$20 mil nesta primavera? Clientes do JK respondem!',fmt:'Reel',t:'P'},
+    {n:9,d:'12',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Diecast volta ao JK: exposição e troca de carrinhos colecionáveis!',fmt:'Stories/Live',t:'E'},
+    {n:10,d:'14',wk:'SEG',ed:'COMER COM OS OLHOS',ab:'Novidades de primavera na praça: pratos leves e cheios de cor',fmt:'Feed',t:'F'},
+    {n:11,d:'16',wk:'QUA',ed:'GANHADORES JK',ab:'🏆 Websérie Ganhadores: o sortudo de agosto conta sua história',fmt:'Reel',t:'P'},
+    {n:12,d:'17',wk:'QUI',ed:'BASTIDORES JK',ab:'Desfile Primavera SCOUTING amanhã: nova geração da moda no JK',fmt:'Stories',t:'E'},
+    {n:13,d:'19',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Desfile Primavera SCOUTING ao vivo no JK: moda que inspira!',fmt:'Stories/Live',t:'E'},
+    {n:14,d:'20',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Zero500 no JK Top Show: sustentabilidade e inovação ao vivo!',fmt:'Stories/Live',t:'E'},
+    {n:15,d:'21',wk:'SEG',ed:'REPLICANDO O LOOK',ab:'Recriar looks do Desfile Primavera com peças das lojas JK',fmt:'Carrossel',t:'E'},
+    {n:16,d:'23',wk:'QUA',ed:'MATCH CINEFLIX',ab:'Resident Evil em cartaz + VMAs na telinha: setembro é do JK. O look certo para cada programa.',fmt:'Carrossel',t:'F'},
+    {n:17,d:'25',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Parque Miraculous (Lady Bug e Cat Noir) abre na Praça Central!',fmt:'Stories/Live',t:'E'},
+    {n:18,d:'26',wk:'SÁB',ed:'COMO PARTICIPAR',ab:'📲 Miraculous + compras + números da sorte: o JK de setembro tem tudo!',fmt:'Stories',t:'P'},
+    {n:19,d:'28',wk:'SEG',ed:'CLIQUE DA SEMANA',ab:'Melhor foto com a Lady Bug e o Cat Noir! #MIRACULOUSNOJK',fmt:'UGC',t:'E'},
+    {n:20,d:'29',wk:'TER',ed:'URGÊNCIA — SORTEIO',ab:'⏰ Últimos dias de setembro! Sorteio R$20 mil se aproxima. Cadastre!',fmt:'Stories',t:'P'},
+    {n:21,d:'30',wk:'QUA',ed:'BASTIDORES JK',ab:'Outubro chegando: Outubro Rosa + Crianças + Halloween + R$20 MIL!',fmt:'Stories',t:'P'},
+   ],
+   ten:'Alta densidade de eventos (Viva Fun, Zero500, Desfile, Miraculous, Setembro Amarelo) em sequência. Risco de dispersão. Criar tema unificador: "Setembro é do JK".',
+   opp:'Festival Viva Fun de 5 dias é o maior evento próprio fora do Natal. Cobertura editorial completa antes/durante/depois = conteúdo de alta performance orgânica.'},
+  {nm:'Outubro',th:'Outubro Rosa + Crianças + Halloween — Diversão garantida. E R$20 mil na conta.',f:30,s:45,e:0,c:15,p:10,
+   ctc_idx:9,
+   events:['CTC R$20k — Halloween + Crianças','Outubro Rosa / Senac 02–03/10','Parque Miraculous (até 25/10)','Feira de Adoção 10–11/10','Dia das Crianças + Halloween 12 e 31/10','🎬 A Rede Social 2 08/10','🎬 Street Fighter 15/10'],
+   posts:[
+    {n:1,d:'01',wk:'QUI',ed:'COMPROU. TROCOU. CONCORREU.',ab:'"Diversão garantida. E R$20 mil na conta." — KV Outubro',fmt:'Feed',t:'P'},
+    {n:2,d:'02',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Outubro Rosa: Carreta da Mulher do Senac chega ao JK hoje!',fmt:'Stories/Live',t:'E'},
+    {n:3,d:'03',wk:'SÁB',ed:'COMO PARTICIPAR',ab:'Outubro cheio de eventos + cada compra = 1 número. Cadastre no app!',fmt:'Stories',t:'P'},
+    {n:4,d:'05',wk:'SEG',ed:'LOOK DO MOMENTO',ab:'Dia das Crianças chegando: looks divertidos para os pequenos no JK',fmt:'Carrossel',t:'S'},
+    {n:5,d:'06',wk:'TER',ed:'COMBINADOS P/ TODOS',ab:'Guia Dia das Crianças: presentes para cada faixa etária no JK',fmt:'Carrossel',t:'S'},
+    {n:6,d:'07',wk:'QUA',ed:'COMER COM OS OLHOS',ab:'Snacks temáticos de Halloween: assustadoramente deliciosos na praça',fmt:'Feed',t:'S'},
+    {n:7,d:'08',wk:'QUI',ed:'O PIX PODE SER SEU',ab:'😱 Ativação surpresa no JK: "Você cadastrou sua nota? Ganha um PIX!"',fmt:'Stories/Live',t:'P'},
+    {n:8,d:'10',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Feira de Adoção Animal: encontre seu novo amigo no JK!',fmt:'Stories/Live',t:'E'},
+    {n:9,d:'11',wk:'DOM',ed:'O INUSITADO ACONTECE',ab:'Adoções que emocionaram: histórias da Feira de Adoção no JK',fmt:'Reel',t:'E'},
+    {n:10,d:'12',wk:'SEG',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Dia das Crianças no JK: Parque Miraculous e muita alegria ao vivo!',fmt:'Stories/Live',t:'E'},
+    {n:11,d:'14',wk:'QUA',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$20 mil no mês do Halloween? Respostas assustadoras!',fmt:'Reel',t:'P'},
+    {n:12,d:'15',wk:'QUI',ed:'POV: SÓ O JK TEM',ab:'POV: algo misterioso está acontecendo nos corredores do JK...',fmt:'Reel',t:'S'},
+    {n:13,d:'17',wk:'SÁB',ed:'BASTIDORES JK',ab:'Uma criatura foi vista no JK: o mistério do Halloween começa!',fmt:'Stories',t:'S'},
+    {n:14,d:'19',wk:'SEG',ed:'LOOK DO MOMENTO',ab:'Fantasia de Halloween criativa com lojas do JK: econômico e incrível',fmt:'Carrossel',t:'S'},
+    {n:15,d:'21',wk:'QUA',ed:'MATCH CINEFLIX',ab:'A Rede Social 2 + Street Fighter em outubro: qual o look certo pra cada sessão de Halloween?',fmt:'Carrossel',t:'P'},
+    {n:16,d:'22',wk:'QUI',ed:'REPLICANDO O LOOK',ab:'Replicar fantasias icônicas com peças das lojas JK',fmt:'Reel',t:'S'},
+    {n:17,d:'24',wk:'SÁB',ed:'GANHADORES JK',ab:'🏆 Websérie Ganhadores: o sortudo de setembro conta sua história',fmt:'Reel',t:'P'},
+    {n:18,d:'26',wk:'SEG',ed:'URGÊNCIA — SORTEIO',ab:'⏰ Halloween tem cheiro de R$20 mil! Sorteio se aproxima. Cadastre!',fmt:'Stories',t:'P'},
+    {n:19,d:'28',wk:'QUA',ed:'VIVO NO JK',ab:'Combo Halloween: cinema de terror + jantar + fantasia = mais chances!',fmt:'Feed',t:'P'},
+    {n:20,d:'30',wk:'SEX',ed:'CONTAGEM REGRESSIVA',ab:'Halloween amanhã: o maior evento de gostosuras e travessuras do JK!',fmt:'Stories',t:'S'},
+    {n:21,d:'31',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Halloween ao vivo: gostosuras e travessuras para as crianças no JK!',fmt:'Stories/Live',t:'E'},
+   ],
+   ten:'Outubro tem eleições gerais — ambiente digital saturado de conteúdo político. Estratégia editorial completamente apartidária é essencial para manter alcance orgânico.',
+   opp:'Dia das Crianças (12/10) e Halloween (31/10) em 19 dias — dois picos sequenciais. Ativação surpresa PIX é o conteúdo de maior viralização potencial da campanha CTC.'},
+  {nm:'Novembro',th:'Aniversário 13 anos + Black Friday — Além do desconto, você ainda concorre.',f:22,s:40,e:0,c:10,p:28,
+   ctc_idx:10,
+   events:['CTC R$20k — Aniversário + BF','Chegada Papai Noel 07/11','Cantatas de Natal 14/11','Aniversário 13 anos 15/11','Tardes Divertidas Especial','Black Friday 27/11','🎬 Jogos Vorazes: Amanhecer na Colheita 19/11','🏆 Billboard Music Awards (nov/tbd)'],
+   posts:[
+    {n:1,d:'02',wk:'SEG',ed:'BASTIDORES JK',ab:'Novembro: Aniversário, Black Friday, Natal. E a promoção continua!',fmt:'Reel',t:'P'},
+    {n:2,d:'03',wk:'TER',ed:'COMPROU. TROCOU. CONCORREU.',ab:'"Além do desconto, você ainda concorre." — KV Novembro',fmt:'Feed',t:'P'},
+    {n:3,d:'04',wk:'QUA',ed:'CONTAGEM REGRESSIVA',ab:'Papai Noel chega em 3 dias! O JK está decorado e emocionante',fmt:'Stories',t:'E'},
+    {n:4,d:'05',wk:'QUI',ed:'COMO PARTICIPAR',ab:'Novembro de R$20 MIL: 13 anos + Black Friday + sorteio. Cadastre tudo!',fmt:'Stories',t:'P'},
+    {n:5,d:'06',wk:'SEX',ed:'BASTIDORES JK',ab:'Amanhã é o dia: bastidores da chegada do Papai Noel ao JK',fmt:'Reel',t:'E'},
+    {n:6,d:'07',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Chegada do Papai Noel ao JK! Magia ao vivo no Estacionamento L1',fmt:'Stories/Live',t:'E'},
+    {n:7,d:'08',wk:'DOM',ed:'O INUSITADO ACONTECE',ab:'As crianças que mais emocionaram na chegada do Papai Noel',fmt:'Reel',t:'E'},
+    {n:8,d:'10',wk:'TER',ed:'COMBINADOS P/ TODOS',ab:'Guia Black Friday: planeje agora e cada compra vira número da sorte!',fmt:'Carrossel',t:'P'},
+    {n:9,d:'11',wk:'QUA',ed:'BASTIDORES JK',ab:'Cantatas de Natal amanhã: spoiler da programação mais emocionante!',fmt:'Stories',t:'E'},
+    {n:10,d:'13',wk:'SEX',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$20 mil na Black Friday? Clientes do JK respondem!',fmt:'Reel',t:'P'},
+    {n:11,d:'14',wk:'SÁB',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Cantatas de Natal: abertura ao vivo na Praça Central do JK!',fmt:'Stories/Live',t:'E'},
+    {n:12,d:'15',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Aniversário 13 anos do JK! Parabéns ao shopping que é a cidade!',fmt:'Stories/Live',t:'E'},
+    {n:13,d:'16',wk:'SEG',ed:'QUEM FAZ O JK',ab:'13 anos de histórias: colaboradores que fizeram o JK o que é hoje',fmt:'Reel',t:'E'},
+    {n:14,d:'17',wk:'TER',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Tardes Divertidas Especial de Natal: Espaço Arte cheio de magia!',fmt:'Stories/Live',t:'E'},
+    {n:15,d:'18',wk:'QUA',ed:'POV: SÓ O JK TEM',ab:'POV: 13 anos de memórias. O JK que cresceu com a cidade',fmt:'Reel',t:'E'},
+    {n:15,d:'19',wk:'QUI',ed:'MATCH CINEFLIX',ab:'🔥 Jogos Vorazes: Amanhecer na Colheita em cartaz! O presente certo para o fã + mais chances na Black Friday do JK.',fmt:'Stories',t:'C'},
+    {n:16,d:'20',wk:'SEX',ed:'BASTIDORES JK',ab:'Black Friday semana que vem: o JK prepara as maiores ofertas do ano',fmt:'Stories',t:'S'},
+    {n:17,d:'22',wk:'DOM',ed:'URGÊNCIA — SORTEIO',ab:'⏰ Black Friday + sorteio R$20 mil: 5 dias! Não perca nenhuma oferta',fmt:'Stories',t:'P'},
+    {n:18,d:'24',wk:'TER',ed:'A VOZ DO JK',ab:'Influencer lista o que vai comprar na Black Friday do JK e concorrer',fmt:'Reel',t:'P'},
+    {n:19,d:'26',wk:'QUI',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Pré-Black Friday: primeiras ofertas liberadas agora no JK!',fmt:'Stories/Live',t:'S'},
+    {n:20,d:'27',wk:'SEX',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'BLACK FRIDAY AO VIVO: descontos + você ainda concorre ao sorteio!',fmt:'Stories/Live',t:'P'},
+    {n:21,d:'28',wk:'SÁB',ed:'O INUSITADO ACONTECE',ab:'O que aconteceu na Black Friday do JK que ninguém esperava',fmt:'Feed',t:'S'},
+    {n:22,d:'29',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Tardes Divertidas Especial: último domingo de novembro no Espaço Arte',fmt:'Stories/Live',t:'E'},
+    {n:23,d:'30',wk:'SEG',ed:'BASTIDORES JK',ab:'Dezembro chegando: R$100 MIL no Natal! A maior promoção do ano!',fmt:'Stories',t:'P'},
+   ],
+   ten:'Novembro tem máxima sobreposição: Consciência Negra (20/11), Black Friday (27/11) e aniversário (15/11). Criar fio condutor: "O JK celebra quem escolhe aqui".',
+   opp:'Aniversário de 13 anos é data proprietária com alto potencial de UGC. CTC: "Além do desconto, você ainda concorre" é a frase mais poderosa do mês — posiciona o JK acima da guerra de preços.'},
+  {nm:'Dezembro',th:'Natal R$100 MIL — Presente de Natal que vale R$100 mil para você.',f:18,s:42,e:0,c:10,p:30,
+   ctc_idx:11,
+   events:['CTC R$100k — Natal 🎄','Tardes Divertidas 01,08,15,22/12','Natal TEA 06 e 13/12','Cantatas até 19/12','Nossa Horta','🎬 Jumanji 3 10/12','🎬 Vingadores: Doutor Destino 17/12','🎬 Duna: Parte 3 (dez/previsto)'],
+   posts:[
+    {n:1,d:'01',wk:'TER',ed:'COMPROU. TROCOU. CONCORREU.',ab:'🎄 KV Dezembro: "Presente de Natal que vale R$100 mil para você!"',fmt:'Feed',t:'P'},
+    {n:2,d:'01',wk:'TER',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Tardes Divertidas Especial: dezembro começa no Espaço Arte!',fmt:'Stories/Live',t:'E'},
+    {n:3,d:'02',wk:'QUA',ed:'COMO PARTICIPAR',ab:'R$100 MIL: cada R$100 = 1 número. Quanto mais comprar, mais chances!',fmt:'Stories',t:'P'},
+    {n:4,d:'03',wk:'QUI',ed:'LOOK DO MOMENTO',ab:'Look natalino: o vermelho, dourado e brilho das lojas JK',fmt:'Carrossel',t:'S'},
+    {n:5,d:'04',wk:'SEX',ed:'COMER COM OS OLHOS',ab:'Panetone, rabanada e mais: tentações natalinas na praça do JK',fmt:'Feed',t:'S'},
+    {n:6,d:'05',wk:'SÁB',ed:'BASTIDORES JK',ab:'Amanhã é o Natal Inclusivo TEA: o evento mais emocionante do ano',fmt:'Reel',t:'E'},
+    {n:7,d:'06',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Natal Inclusivo TEA (1ª data): Papai Noel recebe crianças autistas ❤️',fmt:'Stories/Live',t:'E'},
+    {n:8,d:'07',wk:'SEG',ed:'O INUSITADO ACONTECE',ab:'Os sorrisos mais emocionantes do Natal Inclusivo TEA no JK',fmt:'Feed',t:'E'},
+    {n:9,d:'08',wk:'TER',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Tardes Divertidas Especial: segunda sessão de dezembro ao vivo!',fmt:'Stories/Live',t:'E'},
+    {n:10,d:'09',wk:'QUA',ed:'E SE VOCÊ GANHASSE?',ab:'E se você ganhasse R$100 MIL no Natal? Clientes do JK respondem!',fmt:'Reel',t:'P'},
+    {n:11,d:'10',wk:'QUI',ed:'MATCH CINEFLIX',ab:'Vingadores: Doutor Destino + Jumanji 3: o Natal do cinema. Presentes certos para cada fã + mais chances na CTC.',fmt:'Carrossel',t:'P'},
+    {n:12,d:'12',wk:'SÁB',ed:'COMBINADOS P/ TODOS',ab:'Guia de presentes de última hora: tudo que você precisa no JK',fmt:'Carrossel',t:'S'},
+    {n:13,d:'13',wk:'DOM',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Natal Inclusivo TEA (2ª data): mais famílias, mais emoção e amor',fmt:'Stories/Live',t:'E'},
+    {n:14,d:'14',wk:'SEG',ed:'MEU DIA NO JK',ab:'Como resolver TODOS os presentes de Natal em um dia no JK',fmt:'Reel',t:'S'},
+    {n:15,d:'15',wk:'TER',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Tardes Divertidas Especial: 3ª sessão de dezembro no Espaço Arte',fmt:'Stories/Live',t:'E'},
+    {n:16,d:'16',wk:'QUA',ed:'GANHADORES JK',ab:'🏆 Websérie Ganhadores: emoção do sortudo de novembro!',fmt:'Reel',t:'P'},
+    {n:17,d:'17',wk:'QUI',ed:'CANTATAS DE NATAL',ab:'Cantatas de Natal: a trilha sonora mais emocionante da Praça Central',fmt:'Feed',t:'E'},
+    {n:18,d:'18',wk:'SEX',ed:'URGÊNCIA — SORTEIO',ab:'⏰ R$100 MIL! Últimos dias para cadastrar notas antes do sorteio!',fmt:'Stories',t:'P'},
+    {n:19,d:'19',wk:'SÁB',ed:'POV: SÓ O JK TEM',ab:'POV: encontrar o presente perfeito — e concorrer a R$100 mil!',fmt:'Reel',t:'P'},
+    {n:20,d:'20',wk:'DOM',ed:'A VOZ DO JK',ab:'Influencer faz o roteiro completo de Natal no JK + tutorial do app',fmt:'Reel',t:'P'},
+    {n:21,d:'21',wk:'SEG',ed:'NOSSA HORTA',ab:'Nossa Horta no Natal: o JK que cuida do planeta mesmo no fim do ano',fmt:'Carrossel',t:'C'},
+    {n:22,d:'22',wk:'TER',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Tardes Divertidas: última sessão antes do Natal ao vivo!',fmt:'Stories/Live',t:'E'},
+    {n:23,d:'23',wk:'QUA',ed:'URGÊNCIA — SORTEIO',ab:'⏰ R$100 MIL — 2 dias! Cadastre agora: última chance do ano!',fmt:'Stories',t:'P'},
+    {n:24,d:'24',wk:'QUI',ed:'TÁ NO FEED, TÁ AO VIVO',ab:'Véspera de Natal: o JK em festa pra você — cobertura ao vivo!',fmt:'Stories/Live',t:'S'},
+    {n:25,d:'26',wk:'SÁB',ed:'O INUSITADO ACONTECE',ab:'O Natal mais emocionante que já aconteceu no JK: depoimentos reais',fmt:'Feed',t:'E'},
+    {n:26,d:'28',wk:'SEG',ed:'MEU DIA NO JK',ab:'Balanço de dezembro no JK: o mês mais especial do ano',fmt:'Reel',t:'F'},
+    {n:27,d:'30',wk:'QUA',ed:'BASTIDORES JK',ab:'Obrigado por fazer o JK ser o JK em 2026. A escolha que vale mais!',fmt:'Reel',t:'F'},
+   ],
+   ten:'Natal é a data mais competitiva. Todos investem em decoração e shows. O diferencial está no Natal Inclusivo TEA — genuíno e irreplicável por qualquer concorrente.',
+   opp:'R$100 mil é o maior prêmio do ano. Natal Inclusivo TEA é o conteúdo de maior impacto emocional — genuíno, inédito, impossível de replicar. Websérie Ganhadores de novembro fecha o ciclo CTC.'}
+];
+
+const TOTALS_FMT=['Carrossel','Reel','Stories','Feed','Stories/Live','UGC','Stories/Live'];
+
+function dot(c,s=6){return `<div style="width:${s}px;height:${s}px;border-radius:50%;background:${c};flex-shrink:0"></div>`;}
+function tbg(t){return `<span class="tbadge tbadge-${t}">${TN[t]}</span>`;}
+function fmt(f){return `<span class="fmt">${f}</span>`;}
+
+// ── BUILD YEAR TABLE ──
+function buildYear(){
+  const tbl=document.getElementById('ytbl');
+  const MNS=['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+  let html='<tr><td class="yr-rlbl" style="font-size:9px;letter-spacing:.5px">MÊS</td>';
+  MNS.forEach((m,i)=>{html+=`<td class="yr-mhd" onclick="goMonth(${i})">${m}</td>`;});
+  html+='</tr>';
+  // Proportion row
+  html+='<tr><td class="yr-rlbl">TIPO</td>';
+  MONTHS.forEach(m=>{
+    const tot=m.f+m.s+m.c+m.p;
+    html+=`<td class="yr-cell alt" style="padding:5px 4px;min-width:80px;"><div class="mini-bar" style="height:5px;">
+      <div style="flex:${m.f};background:var(--F)"></div>
+      <div style="flex:${m.s};background:var(--S)"></div>
+      <div style="flex:${m.c};background:var(--C)"></div>
+      <div style="flex:${m.p};background:var(--P)"></div>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:7px;color:#aaa;margin-top:2px;">F${m.f}·S${m.s}·C${m.c}·P${m.p}</div></td>`;
+  });
+  html+='</tr>';
+  // CTC row
+  html+='<tr><td class="yr-rlbl">CTC</td>';
+  CTC_DATA.forEach(c=>{
+    const activo=c.premio!=='—';
+    html+=`<td class="yr-cell" style="padding:4px;text-align:center;">
+      ${activo?`<div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--P);letter-spacing:.5px;">${c.premio}</div><div style="font-size:7.5px;color:#888;line-height:1.3;padding:1px 2px;">${c.frase.slice(0,40)}…</div>`
+      :`<div style="font-size:7.5px;color:#ddd;padding:4px;">Pré-campanha</div>`}
+    </td>`;
+  });
+  html+='</tr>';
+  // Theme row
+  html+='<tr><td class="yr-rlbl">TEMA</td>';
+  MONTHS.forEach(m=>{
+    html+=`<td class="yr-cell alt" style="padding:4px 5px;font-size:8px;color:#777;line-height:1.4;vertical-align:top;">${m.th.split('—')[0].trim()}</td>`;
+  });
+  html+='</tr>';
+  // Key events row
+  html+='<tr><td class="yr-rlbl">EVENTOS</td>';
+  MONTHS.forEach((m,i)=>{
+    const evColors=['#7C3AED','#0891B2','#059669','#DB2777','#E56C1A','#B8900A'];
+    const pills=m.events.slice(0,3).map((e,j)=>{
+      const c=evColors[j%evColors.length];
+      const bg=c.replace('#','');
+      const short=e.replace(/\d+\/\d+(–\d+\/\d+)?/,'').replace(/CTC [^\s]+ — /,'').trim().slice(0,22);
+      return `<span class="yr-ev" style="background:${c}15;color:${c};border:1px solid ${c}30;">${short}</span>`;
+    }).join('');
+    html+=`<td class="yr-cell" style="padding:4px;">${pills}</td>`;
+  });
+  html+='</tr>';
+  // Posts count row
+  html+='<tr><td class="yr-rlbl">POSTS</td>';
+  MONTHS.forEach(m=>{
+    const fc=m.posts.filter(p=>p.t==='F').length,sc=m.posts.filter(p=>p.t==='S').length,
+          ec=m.posts.filter(p=>p.t==='E').length,cc=m.posts.filter(p=>p.t==='C').length,
+          pc=m.posts.filter(p=>p.t==='P').length;
+    html+=`<td class="yr-cell alt" style="padding:4px 5px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--jk-dark);letter-spacing:1px;">${m.posts.length}</div>
+      <div style="font-family:'Space Mono',monospace;font-size:7px;color:#aaa;line-height:1.8;">
+        <span style="color:var(--F)">F${fc}</span> <span style="color:var(--S)">S${sc+ec}</span>${cc?` <span style="color:var(--C)">C${cc}</span>`:''}${pc?` <span style="color:var(--P)">P${pc}</span>`:''}
+      </div></td>`;
+  });
+  html+='</tr>';
+  tbl.innerHTML=html;
+}
+
+// ── BUILD EIXOS ──
+function buildEixos(){
+  const t=document.getElementById('etbl');
+  const EDS=['ed1','ed2','ed3','ed4','ed5'];
+  const EDNS=['EU ME RECONHEÇO','NÓS NOS ENCONTRAMOS','AQUI EU VIVO','O QUE ACONTECE','O QUE EU CONSUMO'];
+  let h='<thead><tr><th>Eixo Narrativo</th>';
+  EDS.forEach((k,i)=>h+=`<th><span style="color:${ED_COLORS[k]}">${EDNS[i]}</span></th>`);
+  h+='</tr></thead><tbody>';
+  EIXOS.forEach(e=>{
+    h+=`<tr><td><div class="enm">${e.nm}</div><div class="efr">${e.fr}</div><div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:3px;">`;
+    e.lines.forEach((l,i)=>h+=`<span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--surf);color:#555;">${l} <span style="color:#aaa;font-weight:400">${e.fmts[i]}</span></span>`);
+    h+=`</div></td>`;
+    EDS.forEach(k=>h+=`<td>${(e.cr[k]||'—').slice(0,80)}…</td>`);
+    h+='</tr>';
+  });
+  h+='</tbody>';t.innerHTML=h;
+
+  const d=document.getElementById('edet');
+  EIXOS.forEach(e=>{
+    const b=document.createElement('div');
+    let items='';
+    EDS.forEach((k,i)=>{
+      items+=`<div class="citem"><div class="ced" style="color:${ED_COLORS[k]}"><div class="cdot" style="background:${ED_COLORS[k]}"></div>${EDNS[i]}</div>
+      <div class="carg">${e.cr[k]}</div></div>`;
+    });
+    b.innerHTML=`<div class="cblk"><div class="chd"><div class="cbadge">${e.nm}</div><div class="cdesc">${e.fr} · ${e.pr}</div></div>
+    <div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:5px;">
+      ${e.lines.map((l,i)=>`<span style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;background:var(--jk-dark);color:var(--jk-y);">${l} <span style="color:rgba(255,255,255,.4);font-weight:400">· ${e.fmts[i]}</span></span>`).join('')}
+    </div>
+    <div class="cgrid">${items}</div></div>`;
+    d.appendChild(b);
+  });
+}
+
+// ── BUILD MONTHS ──
+function buildMonths(){
+  const mc=document.getElementById('mc');
+  MONTHS.forEach((m,i)=>{
+    const div=document.createElement('div');div.className='view';div.id=`m${i}`;
+    const ctc=CTC_DATA[m.ctc_idx];
+    const fc=m.posts.filter(p=>p.t==='F').length,sc=m.posts.filter(p=>p.t==='S').length,
+          ec=m.posts.filter(p=>p.t==='E').length,cc=m.posts.filter(p=>p.t==='C').length,
+          pc=m.posts.filter(p=>p.t==='P').length;
+    const evHtml=m.events.map(e=>{
+      return `<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:10.5px;font-weight:600;background:var(--surf);border:1px solid var(--bdr);color:#555;margin:2px;">${e}</span>`;
+    }).join('');
+    const rows=m.posts.map(p=>{
+      return `<tr class="post-row type-${p.t}" data-type="${p.t}">
+        <td><div class="day-num">${p.d}<span class="day-wk">${p.wk}</span></div></td>
+        <td>${tbg(p.t)}</td>
+        <td style="font-weight:600;color:#333;">${p.ed}</td>
+        <td>${p.ab}</td>
+        <td>${fmt(p.fmt)}</td>
+      </tr>`;
+    }).join('');
+
+    div.innerHTML=`
+    <div class="mhero">
+      <div><div class="mnm">${m.nm}</div><div class="mtheme">${m.th}</div></div>
+      <div class="mstrip">
+        <div class="ps-lbl">Proporção</div>
+        <div class="ps-wrap">
+          <div class="ps-bar">
+            <div class="ps-F" style="width:${m.f}%"></div>
+            <div class="ps-S" style="width:${m.s}%"></div>
+            <div class="ps-C" style="width:${m.c}%"></div>
+            <div class="ps-P" style="width:${m.p}%"></div>
+          </div>
+          <div class="ps-leg">
+            <div class="ps-li" style="color:rgba(255,255,255,.85)">${dot('var(--F)')}F·${fc}</div>
+            <div class="ps-li" style="color:rgba(255,255,255,.85)">${dot('var(--S)')}S·${sc+ec}</div>
+            ${cc?`<div class="ps-li" style="color:rgba(255,255,255,.85)">${dot('var(--C)')}C·${cc}</div>`:''}
+            ${pc?`<div class="ps-li" style="color:rgba(255,255,255,.85)">${dot('var(--P)')}P·${pc}</div>`:''}
+            <div class="ps-li" style="color:rgba(255,255,255,.5);margin-left:4px;">${m.posts.length} posts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${ctc.premio!=='—'?`<div class="m-ctc">
+      <div><div style="font-size:9px;color:rgba(255,255,255,.5);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:2px;">COMPROU.TROCOU.CONCORREU.</div>
+      <div class="mctc-prize">${ctc.premio}</div></div>
+      <div><div class="mctc-frase">"${ctc.frase}"</div>
+      <div class="mctc-cta">Mecânica: R$100 em compras = 1 número da sorte · CTA: Baixe o app · Cadastre sua nota</div></div>
+    </div>`:''}
+    <div class="slbl">Eventos confirmados do mês</div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px;">${evHtml}</div>
+    <div class="slbl">Calendário editorial — ${m.posts.length} publicações</div>
+    <div class="post-tbl-wrap">
+      <table class="post-tbl">
+        <thead><tr><th>DIA</th><th>TIPO</th><th>LINHA EDITORIAL</th><th>ABORDAGEM / ASSUNTO</th><th>FORMATO</th></tr></thead>
+        <tbody id="posts-${i}">${rows}</tbody>
+      </table>
+    </div>
+    <div class="irow">
+      <div class="iblk ten"><div class="ilbl">⚠ Tensão do período</div><div class="itxt">${m.ten}</div></div>
+      <div class="iblk opp"><div class="ilbl">→ Oportunidade estratégica</div><div class="itxt">${m.opp}</div></div>
+    </div>`;
+    mc.appendChild(div);
+  });
+}
+
+// ── NAV ──
+function showView(id,btn){
+  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('act'));btn.classList.add('act');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('act'));
+  document.getElementById('view-'+id).classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showMonth(idx,btn){
+  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('act'));btn.classList.add('act');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('act'));
+  document.getElementById('m'+idx).classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goMonth(idx){
+  const nts=document.querySelectorAll('.nt');
+  showMonth(idx,nts[idx+2]);
+}
+
+// ── FILTER ──
+let activeFilter='all';
+function filterType(type,btn){
+  activeFilter=type;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('act'));btn.classList.add('act');
+  document.querySelectorAll('.post-row').forEach(r=>{
+    (type==='all'||r.dataset.type===type)?r.classList.remove('hidden'):r.classList.add('hidden');
+  });
+}
+
+buildYear();buildEixos();buildMonths();
+</script>
+</body>
+</html>
